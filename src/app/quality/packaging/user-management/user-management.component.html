@@ -1,0 +1,727 @@
+<div class="col-md-10 innerbodyScroll" id="packagingreports">
+    <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12" style="padding-top: 15px;">
+              <p class="showmenuname" style="font-size: 15px !important;">User Management</p>
+            </div>
+          </div>
+          <div class="row" style="padding-top: 25px;">
+            <div class="card maincard">
+              <div class="row">
+              <div class="col-md-8">
+                <ul class="nav nav-pills ">
+                  <!-- <li class="active" id="Pendingtodo" (click)="showsearch()">
+                    <a data-toggle="pill" href="#user">
+                      User
+                    </a>
+                  </li> -->
+                  <li class="active" (click)="showsearch()">
+                    <a data-toggle="pill" href="#team">
+                      Team
+                    </a>
+                  </li>
+
+                  <li class="" >
+                    <a data-toggle="pill" href="#role">
+                      Role
+                    </a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="col-md-4" >
+                <!-- <div class="input-group">
+                  <input type="text" class="form-control placeholderpad" placeholder="Search by Short ID" #searchvalue
+                    (keyup)="searchuser(searchvalue.value)">
+                  <div class="input-group-btn nopading">
+                    <p type="button" class="search-btn">
+                      <i class="fa fa-search searchicon"></i>
+                    </p>
+                  </div>
+                </div> -->
+                <div class="search-container search-style" *ngIf="searchshow=='true' ">
+                    <input class="searchbtn bdrinput search-text" type="text" id="searchplaceholder"  style="border-right: none;" placeholder="Search by Short ID" #searchvalue
+                    (keyup)="searchuser(searchvalue.value)">
+                    <button class="searchbtn bdrbtn btn-load searcbtn" type="button" style="border-left: none;"
+                      >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+              </div>
+            </div>
+              <div class="tab-content">
+                <br>
+
+                <div id="team" class="tab-pane fade in active">
+                  <br>
+                  <div class="col-md-4 mt-15">
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group " (change)="changeteamtab($event.target.value)">
+                      <label for="role" class="editmodal" style="text-align:  center;width: 100%;font-weight: bold !important;font-size: 13px !important;">Team</label>
+                      <select class="form-control" style="border: 1px solid #00677f;    border-radius: 0px;
+                      background-color: #eeeeee;">
+                        <option value="all">ALL</option>
+                        <option value="2">MHE</option>
+                        <option value="3">SM</option>
+                        <option value="4">IPL</option>
+                        <option value="5">PRODUCTION</option>
+                      </select>
+                      <!-- <span class="dropdown"></span> -->
+                    </div>
+                  </div>
+                  <div class="col-md-2 mt-15">
+                  </div>
+                  <div class="col-md-2 mt-15">
+                    <button type="button" class="btn btn-primary  pull-right btn-style" (click)="opencreateteam()">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                      &nbsp;&nbsp;&nbsp;Create Team</button>
+                  </div>
+                  <br>
+                  <div class="col-md-12 table-responsive">
+                    <table class="table  table-striped table-bordered table2" id="myTable4">
+                      <thead class="text-danger">
+                        <tr>
+                          <th>S.No</th>
+                          <th>Role</th>
+                          <th>Team Name</th>
+                          <th>L3 Name</th>
+                          <th>L4 Name</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of datateams| paginate: { itemsPerPage: 10, currentPage:p1,id: 'one'};let index = index ;">
+                          <td style="text-align: center !important">{{(p1- 1) * 10 + index+1 }}</td>
+                          <td>
+                            <p *ngIf="data.roleid==2">MHE</p>
+                            <p *ngIf="data.roleid==3">SM</p>
+                            <p *ngIf="data.roleid==4">IPL</p>
+                            <p *ngIf="data.roleid==5">PRODUCTION</p>
+                          </td>
+                          <td>
+                            <p> {{data.teamname}}</p>
+                          </td>
+                          <td>
+                            <p> {{(data?.l3username !=null ) ? data?.l3username : '-' }}</p>
+                          </td>
+                          <td>
+                            <p> {{(data?.l4username != null) ? data?.l4username : '-' }}</p>
+                          </td>
+                          <td  style="text-align: center !important">
+                            <p (click)="openeditteam((p1- 1) * 10 + index)" style="text-align: center !important">
+                              <i class="fa fa-pencil center"></i>
+                            </p>
+                          </td>
+                          <td  style="text-align: center !important">
+                            <p (click)="opendeleteteam((p1- 1) * 10 + index)" style="text-align: center !important">
+                              <i class="fa fa-trash center"></i>
+                            </p>
+                          </td>
+                      </tbody>
+                    </table>
+                    <br>
+                  </div>
+                  <pagination-controls (pageChange)="p1 = $event" #api2 id="one">
+                  </pagination-controls>
+                </div>
+                <div id="role" class="tab-pane fade in ">
+                    <br>
+                    <div class="col-md-4 mt-15">
+                    </div>
+                    <div class="col-md-4">
+                      <!-- <div class="form-group " (change)="changeteamtab($event.target.value)">
+                        <label for="role" class="editmodal" style="text-align:  center;width: 100%;font-weight: bold !important;font-size: 13px !important;">ROLE</label>
+                        <select class="form-control" style="border: 1px solid #00677f;    border-radius: 0px;
+                        background-color: #eeeeee;">
+                          <option value="all">ALL</option>
+                          <option value="2">MHE</option>
+                          <option value="3">SM</option>
+                          <option value="4">IPL</option>
+                          <option value="5">PRODUCTION</option>
+                        </select>
+                      </div> -->
+                    </div>
+                    <div class="col-md-2 mt-15">
+                    </div>
+                    <div class="col-md-2 mt-15">
+                      <button type="button" class="btn btn-primary  pull-right btn-style" (click)="opencreaterole()">
+                          <i class="fa fa-user" aria-hidden="true"></i>
+                        &nbsp;&nbsp;&nbsp;Create Role</button>
+                    </div>
+                    <br>
+                  <div class="col-md-12 table-responsive" style="    padding: 0 20%;">
+                    <table class="table  table-striped table-bordered table2" id="myTable4">
+                      <thead class="text-danger">
+                        <tr>
+                          <th>S.No</th>
+                          <th>Seq.No</th>
+                          <th>Role</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of allroles| paginate: { itemsPerPage: 10, currentPage:p1,id: 'one'};let index = index ;">
+                          <td  style="text-align: center !important">{{(p1- 1) * 10 + index+1 }}</td>
+                       <td  style="text-align: center !important"> {{data.seq}}</td>
+                          <td>
+                            <p> {{data.rolename}}</p>
+                          </td>
+                       
+                          <td style="text-align: center !important">
+                            <p  (click)="openeditRole(data.id,data.rolename,data.seq)" style="text-align: center !important">
+                              <i class="fa fa-pencil center"></i>
+                            </p>
+                          </td>
+                          <td style="text-align: center !important">
+                            <p  (click)="opendeleteRole()" style="text-align: center !important">
+                              <i class="fa fa-trash center"></i>
+                            </p>
+                          </td>
+                      </tbody>
+                    </table>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+
+     <!-- Start the model -->
+
+     <div class="modal fade" id="Delete" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Delete</h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you want to delete?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id='deleteDisabled' class="btn btn-sm" (click)="confirmdelete()">Yes</button>
+              <button type="button" class="btn btn-sm" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="Deleteteam" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Delete Team</h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <p>
+                Are you sure you want to delete?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm" (click)="confirmdeleteteam()">Yes</button>
+              <button type="button" class="btn btn-sm" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="selectuserdelete" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Select User</h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <p>
+                No User(s) are selected for delete,Please select user(s) to delete.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="Edit" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content" [formGroup]="editUserForm">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">
+                <h6>Edit User</h6>
+              </h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Name</label>
+                    <input type="text" class="form-control " formControlName="name" autocomplete="off" placeholder="Enter  Name ">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.name.valid && editUserForm.controls.name.touched">
+                      Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">E-mail</label>
+                    <input type="email" class="form-control" formControlName="email" autocomplete="off" placeholder="Enter E-mail">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.email.valid && editUserForm.controls.email.touched">
+                      Email is invalid</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Short ID</label>
+                    <input type="text" disabled class="form-control " formControlName="shortid" autocomplete="off" id="uname"
+                      maxlength="40" placeholder="Enter Short ID ">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.shortid.valid && editUserForm.controls.shortid.touched">Short
+                      ID is invalid (Min 3 and Special Characters are not allowed)</small>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="email" class="editmodal">Password:</label>
+                    <input type="password" class="form-control " formControlName="password" autocomplete="off" placeholder="Enter Password ">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.password.valid && editUserForm.controls.password.touched">Password is invalid(Minimum 8 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Confirm Password:</label>
+                    <input type="password" class="form-control " formControlName="cpassword" autocomplete="off" placeholder="Enter Password ">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.cpassword.valid && editUserForm.controls.cpassword.touched">Confirm Password is invalid(Minimum 8 characters)</small>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Phone Number</label>
+                    <input type="text" class="form-control " formControlName="phonenumber" autocomplete="off" placeholder="Enter Phone Number ">
+                    <small class="text-danger" *ngIf="!editUserForm.controls.phonenumber.valid && editUserForm.controls.phonenumber.touched">Phone
+                      Number is invalid(Min 10 and Max 20 characters)</small>
+                  </div>
+                  <div class="form-group" (change)="changeroleedit($event.target.value)">
+                    <label for="role" class="editmodal">Role</label>
+                    <select class="form-control" formControlName="roleid">
+                      <option checked value="1">Super Admin</option>
+                      <option value="2">MHE</option>
+                      <option value="3">SM</option>
+                      <option value="4">IPL</option>
+                      <option value="5">PRODUCTION</option>
+                      <option value="6">INTERNAL USER</option>
+                      <option value="7">EXTERNAL USER</option>
+                    </select>
+                    <span class="dropdown"></span>
+                  </div>
+                  <!-- <div class="form-group" *ngIf="teamnameedit=='mhe'">
+                      <label for="role" class="editmodal">Team Name:</label>
+                      <select class="form-control" formControlName="teamname" (change)="changeeditteam($event.target.value)">
+                        <option checked value="select" disabled>Select Team</option>
+                        <option checked value="team1">team1</option>
+                        <option value="team2">team2</option>
+                      </select>
+                      <span class="dropdown"></span>
+                    </div> -->
+                  <div class="form-group" *ngIf="teamnameedit=='smq'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'smq')">
+                      <!-- <option value="Electrical & Mechatronics">Electrical & Mechatronics</option>
+                      <option value="Load Body">Load Body</option>
+                      <option value="Frame">Frame</option>
+                      <option value="Interior and Exterior">Interior and Exterior </option>
+                      <option value="Cab In White">Cab In White</option>
+                      <option value="Casting and Forgings">Casting and Forgings</option>
+                      <option value="MDT Engine">MDT Engine</option>
+                      <option value="Transmission">Transmission</option>
+                      <option value="HDT Engine">HDT Engine</option>
+                      <option value="Axles and Brakes">Axles and Brakes</option> -->
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index = index ;">
+                        <option *ngIf="data.roleid==3" id={{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group" *ngIf="teamnameedit=='ipl'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'ipl')">
+                      <!-- <option checked value="select" disabled>Select Team</option>
+                      <option checked value="Direct Online">Direct Online</option>
+                      <option value="Logistics Centre">Logistics Centre</option>
+                      <option value="Cab In White">Cab In White</option>
+                      <option value="Frame">Frame</option> -->
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index = index ;">
+                        <option *ngIf="data.roleid==4" #{{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group" *ngIf="teamnameedit=='production'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'production')">
+                      <!-- <option checked value="select" disabled>Select Team</option>
+                      <option checked value="team1">Team 1</option>
+                      <option value="team 2">Team 2</option>
+                      <option value="team 3">Team 3</option>
+                      <option value="team 4">Team 4</option>
+                      <option value="team 5">Team 5</option>
+                      <option value="team 6">Team 6</option> -->
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index = index ;">
+                        <option *ngIf="data.roleid==5" id={{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel </button>
+              <button type="button" id="editDisabled" class="btn btn-sm" (click)="conformedituser()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="Add" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content" [formGroup]="addUserForm">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">
+                <h6 style="text-transform: capitalize;">Create User</h6>
+              </h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Name</label>
+                    <input type="text" class="form-control " formControlName="name" autocomplete="off" placeholder="Enter  Name ">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.name.valid && addUserForm.controls.name.touched">
+                      Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">E-mail</label>
+                    <input type="email" class="form-control" formControlName="email" autocomplete="off" placeholder="Enter E-mail">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.email.valid && addUserForm.controls.email.touched">
+                      Email is invalid</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Short ID</label>
+                    <input type="text" class="form-control " formControlName="shortid" maxlength="40" autocomplete="off" id="adduname"
+                      placeholder="Enter Short ID ">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.shortid.valid && addUserForm.controls.shortid.touched">Short
+                      ID is invalid (Min 3 and Special Characters are not allowed)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Password</label>
+                    <input type="password" class="form-control " formControlName="password" autocomplete="off" placeholder="Enter Password ">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.password.valid && addUserForm.controls.password.touched">Password
+                      is invalid (Minimum 8 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Confirm Password</label>
+                    <input type="password" class="form-control " formControlName="cpassword" autocomplete="off" placeholder="Enter Confirm Password ">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.cpassword.valid && addUserForm.controls.cpassword.touched">Confirm
+                      Password is invalid (Minimum 8 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Phone Number</label>
+                    <input type="text" class="form-control " formControlName="phonenumber" autocomplete="off" placeholder="Enter Phone Number ">
+                    <small class="text-danger" *ngIf="!addUserForm.controls.phonenumber.valid && addUserForm.controls.phonenumber.touched">Phone
+                      Number is invalid (Min 10 and Max 20 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="role" class="editmodal">Role</label>
+                    <select class="form-control" formControlName="roleid" (change)="changerole($event.target.value)">
+                      <option checked value="select" disabled>Select Role</option>
+                      <option checked value="1">Super Admin</option>
+                      <option value="2">MHE</option>
+                      <option value="3">SM</option>
+                      <option value="4">IPL</option>
+                      <option value="5">PRODUCTION</option>
+                      <option value="6">INTERNAL USER</option>
+                      <option value="7">EXTERNAL USER</option>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group" *ngIf="teamname=='smq'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'smq')">
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index of index;">
+                        <option *ngIf="data.roleid==3" id={{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                      <!-- <option checked value="select" disabled>Select Team</option>
+                      <option value="Electrical & Mechatronics">Electrical & Mechatronics</option>
+                      <option value="Load Body">Load Body</option>
+                      <option value="Frame">Frame</option>
+                      <option value="Interior and Exterior">Interior and Exterior </option>
+                      <option value="Cab In White">Cab In White</option>
+                      <option value="Casting and Forgings">Casting and Forgings</option>
+                      <option value="MDT Engine">MDT Engine</option>
+                      <option value="Transmission">Transmission</option>
+                      <option value="HDT Engine">HDT Engine</option>
+                      <option value="Axles and Brakes">Axles and Brakes</option> -->
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group" *ngIf="teamname=='ipl'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'ipl')">
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index of index;">
+                        <option *ngIf="data.roleid==4" id={{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                      <!-- <option checked value="select" disabled>Select Team</option>
+                      <option checked value="Direct Online">Direct Online</option>
+                      <option value="Logistics Centre">Logistics Centre</option>
+                      <option value="Cab In White">Cab In White</option>
+                      <option value="Frame">Frame</option> -->
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group" *ngIf="teamname=='production'">
+                    <label for="role" class="editmodal">Team Name</label>
+                    <select class="form-control" formControlName="teamname" (change)="changeteam($event.target.value,'production')">
+                      <!-- <option checked value="select" disabled>Select Team</option>
+                      <option checked value="team1">Team 1</option>
+                      <option value="team 2">Team 2</option>
+                      <option value="team 3">Team 3</option>
+                      <option value="team 4">Team 4</option>
+                      <option value="team 5">Team 5</option>
+                      <option value="team 6">Team 6</option> -->
+                      <option checked value="select" disabled>-- Select Team --</option>
+                      <ng-container *ngFor="let data of allteams;let index of index;">
+                        <option *ngIf="data.roleid==5" id={{index}} value={{data.teamname}}>{{data.teamname}}</option>
+                      </ng-container>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="saveDisabled" class="btn btn-sm" (click)="conformadduser()">Save</button>
+              <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="createteam" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content" [formGroup]="createteamForm">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">
+                <h6>Create Team</h6>
+              </h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="role" class="editmodal">Role</label>
+                    <select class="form-control" formControlName="roleid">
+                      <option value="2">MHE</option>
+                      <option value="3">SM</option>
+                      <option value="4">IPL</option>
+                      <option value="5">PRODUCTION</option>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Team Name</label>
+                    <input type="text" class="form-control" formControlName="teamname" autocomplete="off" placeholder="Enter Team Name "
+                      maxlength="40">
+                    <small class="text-danger" *ngIf="!createteamForm.controls.teamname.valid && createteamForm.controls.teamname.touched">Team
+                      Name is required (Min 3 character)</small>
+                  </div>
+
+                  <!-- <div class="form-group">
+                    <div class="search-results">
+                      <input [value]="search"
+                        ngxTypeahead
+                        [taUrl]="url"
+                        [taParams]="params"
+                        (taSelected)="leadername($event)"
+                        (keyup)="leadername($event.target.value)"
+                      >
+                    </div>
+                  </div> -->
+
+                  <div class="form-group">
+                    <label for="email" class="editmodal">L3 Name</label>
+                    <input type="text" class="form-control " formControlName="l3username" autocomplete="off" placeholder="Enter  L3 Name "
+                      (input)="leadername($event.target.value)" autocomplete="off" list="leadername" name="leadername">
+                    <datalist id="leadername">
+                      <ng-container *ngFor="let list of leadernamelists ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!createteamForm.controls.l3username.valid && createteamForm.controls.l3username.touched">
+                      L3 Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">L4 Name</label>
+                    <input type="text" class="form-control " formControlName="l4username" autocomplete="off" placeholder="Enter  L4 Name "
+                      (input)="leadernamel4($event.target.value)" autocomplete="off" list="leadernamel4" name="leadernamel4">
+                    <datalist id="leadernamel4">
+                      <ng-container *ngFor="let list of leadernamelistsl4 ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!createteamForm.controls.l4username.valid && createteamForm.controls.l4username.touched">
+                      L4 Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group" *ngIf="createteamForm.value.roleid==4 || createteamForm.value.roleid==5">
+                    <label for="email" class="editmodal">Spoc Name</label>
+                    <input type="text" class="form-control " formControlName="spocname" autocomplete="off" placeholder="Enter  Spoc Name "
+                      (input)="Spoclist($event.target.value)" autocomplete="off" list="Spoclist" name="Spoclist" maxlength="50">
+                    <datalist id="Spoclist">
+                      <ng-container *ngFor="let list of Spocdatalist ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!createteamForm.controls.spocname.valid && createteamForm.controls.spocname.touched">
+                      Spocname is invalid (Min 3 characters)</small>
+                    <small class="text-danger">{{spocnameerror}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel </button>
+              <button type="button" class="btn btn-sm" (click)="conformcreateteam()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="editteam" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content" [formGroup]="editteamForm">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">
+                <h6>Edit Team</h6>
+              </h4>
+              <hr>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="role" class="editmodal">Role</label>
+                    <select class="form-control" formControlName="roleid">
+                      <option value="2">MHE</option>
+                      <option value="3">SM</option>
+                      <option value="4">IPL</option>
+                      <option value="5">PRODUCTION</option>
+                    </select>
+                    <!-- <span class="dropdown"></span> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">Team Name</label>
+                    <input type="text" class="form-control" formControlName="teamname" autocomplete="off" placeholder="Enter Team Name "
+                      maxlength="40">
+                    <small class="text-danger" *ngIf="!editteamForm.controls.teamname.valid && editteamForm.controls.teamname.touched">Team
+                      Name is required (Min 3 character)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">L3 Name</label>
+                    <input type="text" class="form-control " formControlName="l3username" autocomplete="off" placeholder="Enter  L3 Name "
+                      (input)="leadernameedit($event.target.value)" autocomplete="off" list="leadernameedit" name="leadernameedit">
+                    <datalist id="leadernameedit">
+                      <ng-container *ngFor="let list of leadernamelistsedit ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!editteamForm.controls.l3username.valid && editteamForm.controls.l3username.touched">
+                      L3 Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="email" class="editmodal">L4 Name</label>
+                    <input type="text" class="form-control " formControlName="l4username" autocomplete="off" placeholder="Enter  L4 Name "
+                      (input)="leadernamel4edit($event.target.value)" autocomplete="off" list="leadernamel4edit" name="leadernamel4edit">
+                    <datalist id="leadernamel4edit">
+                      <ng-container *ngFor="let list of leadernamelistsl4edit ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!editteamForm.controls.l4username.valid && editteamForm.controls.l4username.touched">
+                      L4 Name is invalid (Min 3 and Max 40 characters)</small>
+                  </div>
+                  <div class="form-group" *ngIf="editteamForm.value.roleid==4 || editteamForm.value.roleid==5">
+                    <label for="email" class="editmodal">Spoc Name</label>
+                    <input type="text" class="form-control " formControlName="spocname" autocomplete="off" placeholder="Enter  Spoc Name "
+                      (input)="Spoclistedit($event.target.value)" autocomplete="off" list="Spoclistedit" name="Spoclistedit">
+                    <datalist id="Spoclistedit">
+                      <ng-container *ngFor="let list of Spocdatalistedit ">
+                        <option value={{list}}></option>
+                      </ng-container>
+                    </datalist>
+                    <small class="text-danger" *ngIf="!editteamForm.controls.spocname.valid && editteamForm.controls.spocname.touched">
+                      Spocname is invalid (Min 3 characters)</small>
+                    <small class="text-danger">{{spocnameerror}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel </button>
+              <button type="button" class="btn btn-sm" (click)="confirmedttteam()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="opencreateRoles" role="dialog" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog modal-md" style="    width: 25%;">
+            <div class="modal-content" [formGroup]="createRoleForm">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                  <h6>{{modalname}}</h6>
+                </h4>
+                <hr>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                  
+                    <div class="form-group">
+                      <label for="email" class="editmodal">Sequence No</label>
+                      <input type="number" class="form-control" formControlName="seq" autocomplete="off" placeholder="Enter Sequence No " >
+                      <small class="text-danger" *ngIf="!createRoleForm.controls.seq.valid && createRoleForm.controls.seq.touched">
+                          Sequence No is required</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="editmodal">Role Name</label>
+                        <input type="text" class="form-control" formControlName="rolename" autocomplete="off" placeholder="Enter Role Name "
+                          maxlength="40">
+                        <small class="text-danger" *ngIf="!createRoleForm.controls.rolename.valid && createRoleForm.controls.rolename.touched">
+                          Role Name is required (Min 3 character)</small>
+                      </div>
+  
+                   
+                  
+                 
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+  
+                <button type="button" class="btn btn-sm" data-dismiss="modal">Cancel </button>
+                <button type="button" class="btn btn-sm" (click)="conformcreateRole()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>

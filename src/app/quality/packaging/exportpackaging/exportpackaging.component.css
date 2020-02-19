@@ -1,0 +1,341 @@
+ul.nav.nav-pills {
+    border-bottom: 1px solid #d9d9d9;
+  }
+  .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+    background: 0 0!important;
+    color: #000;
+    border-bottom: 2px solid #000!important;
+  }
+  .nav-pills > li.active > a, .nav-pills > li.active > a{
+    color: #000 !important;
+    box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
+  }
+  .nav-pills:not(.nav-pills-icons) > li > a {
+    background: 0 0!important;
+    -webkit-transition: none!important;
+    transition: none!important;
+  }
+  .nav-pills:not(.nav-pills-icons)>li>a {
+    border-radius: 0!important;
+    /* background: #d9d9d9!important; */
+  }
+  .nav-pills>li>a {
+    line-height: 24px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 100px;
+    text-align: center;
+    color: #555;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  
+  
+  th {
+    color: #00677f;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .card {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+    border-radius: 3px;
+    color: rgba(0,0,0,.87);
+    background: #fff;
+    /* padding: 10px; */
+  }
+   .search-style{
+    text-align: right;
+    padding-top: 10px;
+  }
+  .ngx-pagination a, .ngx-pagination button {
+    text-decoration: none;
+  }
+  .modal-body label.control-label {
+    margin: 0px !important;
+  }
+  /* .modal-body{
+    padding-top: 0px !important;
+  } */
+  textarea {
+    margin-top: 1%;
+  }
+  .modal-body th {
+    text-align: left;
+  }
+  #viewstatus th, #viewstatus td,#viewstatusdataappRejHis th, #viewstatusdataappRejHis td {
+    text-align: center !important;
+  }
+  table#myTable td, table#myTable2 td {
+    padding: 4px !important;
+  }
+  table#myTable td, table#myTable3 td {
+    padding: 4px !important;
+  }
+  table#myTable td, table#myTable4 td {
+    padding: 4px !important;
+  }
+  .pad{
+    padding-top: 10px;
+  }
+  
+  
+  /* <-- view--modal --> */
+  .maintitle{
+    font-size: 12px;
+    color:#000;
+  }
+  .partcontentsmall{
+    font-size: 11px;
+    color:#000;
+    line-height: 21px;
+  }
+  
+  .modaltable td{
+    padding:0px 5px !important;
+    font-size: 11px  !important;
+    text-align: left !important;
+    }
+    .modaltable th{
+        padding:0px 5px !important;
+        font-size: 10px  !important;
+        text-align: left !important;
+        white-space: nowrap;
+        }
+  .modaltable{
+    margin-bottom: 0px !important;
+  }
+  .outertableborder{
+    border:1px solid #000;
+    padding: 3px;
+  }
+  #modalView .pull-left{
+    padding-left: 0px;
+  }
+  #modalView  img#imgid1, img#imgid2, img#imgid3, img#imgid4, img#imgid5, img#imgid6 {
+    width: 100%!important;    height: 140px !important;
+  }
+  .partmodaltitle{
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+  }
+  #modalView .modal-content .modal-body.row {
+  
+        /* margin-right: 0px !important;
+        margin-left: 0px !important; */
+  }
+  @media (min-width: 1200px)
+  {
+  .modal-lg {
+    width: 1200px;
+  }
+  }
+  @media (min-width: 992px)
+  {
+  #modalView {
+     overflow-x: hidden !important;
+  }
+  .modaltab td,.modaltab th {
+    padding: 2px !important;
+    font-size: 12px
+  }
+  .modaltab{
+    padding-bottom: 0px;
+    padding-top: 1px;
+  }
+  .mt-13  {
+    margin-top: 13px;
+  }
+  }
+  #rejection,#Pendingtodo{
+    border-right:1px solid #ccc !important;
+  }
+  ::-ms-clear {
+    display: none !important;
+  }
+  div#reassignhistory {
+    z-index: 1060 !important;
+    /* margin-top: 7% !important; */
+    background: #000000 !important; ;
+    opacity: 0.93 !important; ;
+  }
+  .spoc{
+    position: relative;
+    bottom: 9px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  button.close {
+    color: #999999;
+    opacity: .9;
+    text-shadow: none;
+    font-size: 15px;
+  
+  }
+  button.btn.btn-sm {
+    border-radius: 0px !important;
+    background: #000000 !important;
+    color: #FFFF;
+    position: absolute;
+    right: 23px;
+    bottom: 20px;
+  }
+  .searcbtn{
+    padding: 10px 10px;
+    background-color: black;
+    color: #fff;
+  }
+  .search-text{
+    width: 87%;
+    padding: 11px 0;
+    font-size: 12px;
+    background-color: #eee;
+    border: none;
+    padding-left: 10px;
+  }
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 0px;
+}
+.switch-field {
+	display: flex;
+	/* margin-bottom: 36px; */
+  overflow: hidden;
+  display: inline-block;
+}
+
+.switch-field input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+/* .radio-three {
+	background-color: red !important;
+	box-shadow: none;
+}
+.radio-five {
+	background-color: #a5dc86 !important;
+	box-shadow: none;
+} */
+/* .radio-four {
+	background-color: yellow !important;
+	box-shadow: none;
+} */
+.switch-field  input:checked + label.radio-three {
+	background-color: #c93d3d;
+	box-shadow: none;
+}
+.switch-field  input:checked + label.radio-five {
+	background-color: #0a9c0a;
+	box-shadow: none;
+}
+.switch-field  input:checked + label.radio-four {
+	background-color: #e6e032;
+	box-shadow: none;
+}
+
+
+.switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
+}
+
+/* This is just for CodePen. */
+
+.switch {
+	display: flex;
+	/* margin-bottom: 36px; */
+  overflow: hidden;
+
+    position: relative;
+    display: inline-block;
+    width: 154px;
+    height: 35px;
+
+}
+
+.switch input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.switch label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.switch label:hover {
+	cursor: pointer;
+}
+
+
+/* .switch .radio-four input:checked + label {
+	background-color: red;
+	box-shadow: none;
+} */
+
+.switch  input:checked + label.radio-one {
+	background-color: #c93d3d;
+	box-shadow: none;
+}
+.switch  input:checked + label.radio-two {
+	background-color: #e6e032;
+	box-shadow: none;
+}
+.switch  input:checked + label.radio-six {
+	background-color: #0a9c0a;
+	box-shadow: none;
+}
+
+.switch label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.switch label:last-of-type {
+	border-radius: 0 4px 4px 0;
+}
+
+

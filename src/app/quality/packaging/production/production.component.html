@@ -1,0 +1,753 @@
+<div class="col-md-10 innerbodyScroll" id="packagingreports">
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12" style="padding-top: 15px;">
+          <p class="showmenuname">Production Approval</p>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 26px;">
+        <div class="card maincard">
+          <div class="col-md-8">
+            <ul class="nav nav-pills signoffsheet">
+              <ul class="nav nav-pills">
+                <li class="active" id="Pendingtodo" (click)="changetab('pending')">
+                  <a data-toggle="pill" href="#pending" style="border-right: 1px solid #ccc;">
+                    Pending
+                  </a>
+                </li>
+                <li (click)="changetab('rejectionhistory')">
+                  <a data-toggle="pill" href="#history" style="border-right: 1px solid #ccc;">
+                    Approve/Rejection history
+                  </a>
+                </li>
+              </ul>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <!-- <div class="input-group" *ngIf=" pendingtab=='show' ">
+              <input type="text" class="form-control placeholderpad" placeholder="Search by Part Number" #searchvalue1
+                (keyup)="searchsignoff(searchvalue1.value)">
+              <div class="input-group-btn nopading">
+                <p type="button" class="search-btn" (click)="searchsignoff(searchvalue1.value)">
+                  <i class="fa fa-search searchicon"></i>
+                </p>
+              </div>
+            </div> -->
+            <div class="search-container search-style" *ngIf=" pendingtab=='show' ">
+                <input class="searchbtn bdrinput" type="text" placeholder="Search by Part Number" name="search"
+                  style="border-right: none;"  #searchvalue1
+                  (keyup)="searchsignoff(searchvalue1.value)">
+                <button class="searchbtn bdrbtn btn-load" type="button" style="border-left: none;"
+                (click)="searchsignoff(searchvalue1.value)">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            <!-- <div class="input-group" *ngIf=" historytab=='show' ">
+              <input type="text" class="form-control placeholderpad" placeholder="Search by Part Number" #searchvalue2
+                (keyup)="searchsignoff(searchvalue2.value)">
+              <div class="input-group-btn nopading">
+                <p type="button" class="search-btn" (click)="searchsignoff(searchvalue2.value)">
+                  <i class="fa fa-search searchicon"></i>
+                </p>
+              </div>
+            </div> -->
+            <div class="search-container search-style" *ngIf=" historytab=='show' ">
+                <input class="searchbtn bdrinput" type="text" placeholder="Search by Part Number" name="search"
+                  style="border-right: none;"  #searchvalue1
+                  (keyup)="searchsignoff(searchvalue1.value)">
+                <button class="searchbtn bdrbtn btn-load" type="button" style="border-left: none;"
+                (click)="searchsignoff(searchvalue1.value)">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            <!-- <div class="input-group" *ngIf=" othertab=='show' ">
+              <input type="text" class="form-control placeholderpad" placeholder="Search by Part Number" #searchvalue3
+                (keyup)="searchsignoff(searchvalue3.value)">
+              <div class="input-group-btn nopading">
+                <p type="button" class="search-btn">
+                  <i class="fa fa-search searchicon"></i>
+                </p>
+              </div>
+            </div> -->
+            <div class="search-container search-style" *ngIf=" othertab=='show' ">
+                <input class="searchbtn bdrinput" type="text" placeholder="Search by Part Number" name="search"
+                  style="border-right: none;"  #searchvalue1
+                  (keyup)="searchsignoff(searchvalue1.value)">
+                <button class="searchbtn bdrbtn btn-load" type="button" style="border-left: none;"
+                (click)="searchsignoff(searchvalue1.value)">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+          </div>
+          <div class="tab-content">
+            <div id="pending" class="tab-pane fade in active">
+              <div class="col-md-12 table-responsive" style="padding-top: 26px;">
+                <table class="table  table-striped table-bordered table1" id="myTable2">
+                  <thead class="text-danger">
+                    <tr>
+                      <th>Ref No</th>
+                      <th>Revision No</th>
+                      <th>Part No</th>
+                      <th>Part Disc</th>
+                      <th>Supplier</th>
+                      <th>Supplier Code</th>
+                      <th>Supplier Location</th>
+                      <th>Approval Status</th>
+                      <th *ngIf="approveprivilage!=false">Reject/Approve</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of productiondata| paginate: { itemsPerPage: 10, currentPage: p1,id:'one'};let index = index ;">
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p>{{data.id}} </p>
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p>{{data.revision}} </p>
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p> {{data.partDetails.partnumber}}</p>
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        {{data.partDetails.partname}}
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p>{{data.supplierDetails.suppliername}}</p>
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p> {{data.supplierDetails.suppliercode}}</p>
+                      </td>
+                      <td (click)="viewreport((p1- 1) * 10 + index,'pending')">
+                        <p>{{data.supplierDetails.address}}</p>
+                      </td>
+                      <td class="tablepointer italic" (click)="viewstatus(data.id)">
+                        Click Here
+                      </td>
+                      <td *ngIf="approveprivilage!=false">
+                        <div class="radio-wrapper">
+                          <p class="wrong">
+                            <i class="fa fa-close"> </i>
+                          </p>
+                          <p class="correct">
+                            <i class="fa fa-check "></i>
+                          </p>
+                          <p class="neutral-icon">
+                            <i class="fa fa-circle"></i>
+                          </p>
+                          <input type="radio" name={{index}} class="yes" id=radio-yes{{index}} value="reject" (click)="approve($event,data.signOffid,data.id,data.teamname1,data.subteam)" />
+                          <label for=radio-yes{{index}}> </label>
+                          <input type="radio" name={{index}} class="neutral" checked id=radio-neutral{{index}} value="neutral"
+                            (click)="approve($event,data.signOffid,data.id,data.teamname1,data.subteam)" />
+                          <label for=radio-neutral{{index}}></label>
+                          <input type="radio" name={{index}} class="no" id=radio-no{{index}} value="approve" (click)="approve($event,data.signOffid,data.id,data.teamname1,data.subteam)" />
+                          <label for=radio-no{{index}}></label>
+                        </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <br>
+                <pagination-controls (pageChange)="p1 = $event" #api id="one">
+                </pagination-controls>
+              </div>
+            </div>
+            <div id="history" class="tab-pane fade in">
+              <div class="col-md-12 table-responsive" style="padding-top: 26px;">
+                <table class="table  table-striped table-bordered table1" id="myTable3">
+                  <thead class="text-danger">
+                    <tr>
+                      <th>Ref No</th>
+                      <th>Revision No</th>
+                      <th>Part No</th>
+                      <th>Part Disc</th>
+                      <th>Supplier</th>
+                      <th>Supplier Code</th>
+                      <th>Supplier Location</th>
+                      <th>Approval Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of productiondatahistory| paginate: { itemsPerPage: 10, currentPage: p2,id: 'two'};let index = index ;">
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p>{{data.id}} </p>
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p>{{data.revision}} </p>
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p> {{data.partDetails.partnumber}}</p>
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        {{data.partDetails.partname}}
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p>{{data.supplierDetails.suppliername}}</p>
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p> {{data.supplierDetails.suppliercode}}</p>
+                      </td>
+                      <td (click)="viewreport((p2- 1) * 10 + index,'approve')">
+                        <p>{{data.supplierDetails.address}}</p>
+                      </td>
+                      <td class="tablepointer italic" (click)="viewstatus(data.id)">
+                        <p *ngIf="data.approvalStatus=='approved'" style="font-style: normal !important;color:green">{{data.approvalStatus
+                          |uppercase}}</p>
+                        <p *ngIf="data.approvalStatus=='rejected'" style="font-style: normal !important;color:red">{{data.approvalStatus
+                          |uppercase}}</p>
+                        <p class="tablepointer "> Click here for more details</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br>
+                <pagination-controls (pageChange)="p2 = $event" #apii id="two">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Start the modal -->
+
+<div class="modal fade" id="Approve" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" (click)="makeNeutral()">&times;</button>
+          <h4 class="modal-title">Approve</h4>
+          <hr>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to approve?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="approveDisabled" class="btn btn-sm" data-dismiss="modal" (click)="confirmApprove()">Yes</button>
+          <button type="button" class="btn btn-sm" data-dismiss="modal" (click)="makeNeutral()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="Reject" role="dialog" data-backdrop="static" data-keyboard="false">
+    <ng-container [formGroup]="rejectForm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" (click)="makeNeutral()">&times;</button>
+            <h4 class="modal-title">Reject</h4>
+            <hr>
+          </div>
+          <div class="modal-body">
+            <label class="control-label">Remarks </label>
+            <textarea class="form-control" placeholder="Enter your remarks here..." formControlName="remarks"></textarea>
+            <small class="text-danger" *ngIf="!rejectForm.controls.remarks.valid && rejectForm.controls.remarks.touched">Remarks
+              are required(min 3 and max 100 char)</small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="rejectDisable" class="btn btn-sm" (click)="reject()">Submit</button>
+            <button type="button" class="btn btn-sm" (click)="makeNeutral()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="modal fade" id="viewstatus" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Status</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table  table-striped table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>Stake Holder</th>
+                <th>Team Name</th>
+                <th>Status</th>
+                <th>Assigned time</th>
+                <th>Updated time</th>
+                <th>Updated By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let data of statusdata ;let index = index ;">
+                <tr *ngIf="data.status!=null">
+                  <td>
+                    <span *ngIf="data.teamname=='SMQ' ">SM</span>
+                    <span *ngIf="data.teamname!='SMQ' ">{{data.teamname |uppercase}}</span>
+                  </td>
+                  <td style="width: 22%;">
+                      <span *ngIf=" data.teamname=='supplier' ">Supplier</span>
+                      <span *ngIf="data.teamname=='MHE' ">MHE</span>
+                      <span *ngIf="data.teamname=='SMQ' ">{{data.teamname1 |titlecase}}</span>
+                      <span *ngIf="data.teamname=='IPL' ">{{data.teamname1 |titlecase}}</span>
+                      <span *ngIf="data.teamname=='production' ">{{data.teamname1 |titlecase}}</span>
+                    </td>
+                  <td>{{data.status |titlecase}}</td>
+                  <td>
+                    {{(data.assignedtime != null) ? data.assignedtime : '-' }}
+                  </td>
+                  <td>
+                    {{(data.updatedtime != null) ? data.updatedtime : '-' }}
+                  </td>
+                  <td>
+                    <p style="text-transform: capitalize;">{{(data.updatedby != null) ? data.updatedby : '-' }}</p>
+                  </td>
+                  <td>
+                    {{(data.remarks != null) ? data.remarks : '-' }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modalView" role="dialog">
+    <div class="modal-dialog modal-lg modalview">
+      <div class="modal-content modalinnerdesign">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body ">
+          <div class="row">
+            <div class="col-md-4 mt-10">
+              <img style="width: 50%;" src="./assets/img/side-logo.png">
+            </div>
+            <div class="col-md-4 mt-10">
+              <p class="maintitle pull-left" style="text-decoration:underline;margin-left: 20%;font-size: 19px;font-weight: 700;">PACKAGING
+                SIGN OFF SHEET</p>
+            </div>
+            <div class="col-md-4 mt-10">
+              <img style="width: 12%;float:right" src="./assets/img/benz_logo.jpg">
+            </div>
+            <div class="col-md-12  mt-10">
+              <div class="col-md-6 ">
+              </div>
+
+              <div class="col-md-2 ">
+              </div>
+              <div class="col-md-2 ">
+                <div class="flex pull-right">
+                  <label class="partcontentsmall" for="email">Doc Ref No:&nbsp; </label>
+                  <span class="partcontentsmall">{{modaldata?.id}}</span>
+                </div>
+              </div>
+              <div class="col-md-2 ">
+                <div class="flex pull-right">
+                  <label class="partcontentsmall" for="email" style="font-weight: bold;">Variant:&nbsp; </label>
+                  <span class="partcontentsmall">{{modaldata?.supplierDetails?.variant}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12  mt-10">
+              <p class="col-md-7 pull-left" style="margin-bottom: 7px !important;;">SUPPLIER DETAILS</p>
+              <p class="col-md-5" style="margin-bottom: 7px !important;padding-left: 3.5% !important">PART DETAILS</p>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-7 outertableborder">
+                <table class="table table-bordered modaltable">
+                  <tbody>
+                    <tr>
+                      <th>Supplier Code</th>
+                      <td>{{modaldata?.supplierDetails?.suppliercode}}</td>
+                      <th>Supplier Name</th>
+                      <td>{{modaldata?.supplierDetails?.suppliername}}</td>
+                    </tr>
+                    <tr>
+                      <th>Supplier Address</th>
+                      <td>{{modaldata?.supplierDetails?.address}}</td>
+                      <th>Region</th>
+                      <td>{{modaldata?.supplierDetails?.region}}</td>
+                    </tr>
+                    <tr>
+                      <th>Contact Person</th>
+                      <td>{{modaldata?.supplierDetails?.contactperson}}</td>
+                      <th>E-Mail</th>
+                      <td>{{modaldata?.supplierDetails?.email}}</td>
+                    </tr>
+                    <tr>
+                      <th>Phone Number</th>
+                      <td>{{modaldata?.supplierDetails?.phonenumber}}</td>
+                      <th>Fax</th>
+                      <td>{{modaldata?.supplierDetails?.fax}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+              <div class="col-md-5" style="margin: 0px;padding: 0px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 outertableborder">
+                  <table class="table table-bordered modaltable">
+                    <tbody>
+                      <tr>
+                        <th>Part Number</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.partnumber}}</p>
+                        </td>
+                        <th>Plant Code</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.plantcode}}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Part Name</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.partname}}</p>
+                        </td>
+                        <th>Plant Name</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.plantname}}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Buyer Name</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.buyername}}</p>
+                        </td>
+                        <th>Contact Number</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.contact}}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th></th>
+                        <td></td>
+                        <th>E-Mail</th>
+                        <td>
+                          <p style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">{{modaldata?.partDetails?.email}}</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12  mt-10">
+              <p class="col-md-7 pull-left">PACKAGING CONSTRUCTION</p>
+              <p class="col-md-5 " style="padding-left: 3.5% !important;">PART INFORMATION</p>
+            </div>
+            <div class="col-md-12  mt-10">
+              <div class="col-md-7" style="padding: 0px;">
+                <div class="col-md-12 outertableborder">
+                  <div class="col-md-12  ">
+                    <p class="col-md-4 partmodaltitle pull-left">Part Image</p>
+                    <p class="col-md-4 partmodaltitle pull-left">Internal Construction (1/2)</p>
+                    <p class="col-md-4 partmodaltitle pull-left">Internal Construction (2/2)</p>
+                  </div>
+                  <div style="padding: 0px;" class="col-md-12">
+                    <div class="col-md-4  outertableborder" style="border-right:none;">
+                      <img id="imgid1" [src]='' alt="...">
+                    </div>
+                    <div class="col-md-4 outertableborder" style="border-right:none;">
+                      <img id="imgid2" [src]='' alt="...">
+                    </div>
+                    <div class="col-md-4 outertableborder">
+                      <img id="imgid3" [src]='' alt="...">
+                    </div>
+                  </div>
+                  <div class="col-md-12 ">
+                    <p class="col-md-4 partmodaltitle pull-left" style="border-right:none;">Scratch/ Rust Protection</p>
+                    <p class="col-md-4 partmodaltitle pull-left" style="border-right:none;">Packaging with DICV Label</p>
+                    <p class="col-md-4 partmodaltitle pull-left">Final Packaging</p>
+                  </div>
+                  <div style="padding: 0px;" class="col-md-12  ">
+                    <div style="border-right:none;" class="col-md-4 outertableborder">
+                      <img id="imgid4" [src]='' alt="...">
+                    </div>
+                    <div style="border-right:none;" class="col-md-4 outertableborder">
+                      <img id="imgid5" [src]='' alt="...">
+                    </div>
+                    <div class="col-md-4 outertableborder">
+                      <img id="imgid6" [src]='' alt="...">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-10">
+                  <p class="col-md-4 ">SHELF LIFE (Months)</p>
+                  <p class="col-md-4 ">BASE PALLET</p>
+                  <p class="col-md-4 ">MODE OF HANDLING</p>
+                </div>
+                <div class="col-md-12 ">
+                  <div class="col-md-4 ">
+                    <table class="table table-bordered modaltab">
+                      <tbody>
+                        <tr>
+                          <td style="font-weight: bold;padding: 10px !important;    text-align: center !important;">
+                            {{(modaldata?.packagingDetails?.tempStorageSpec == 'true') ?
+                            modaldata?.packagingDetails?.shellLife : 'N/A' }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-4 ">
+                    <table class="table table-bordered modaltab">
+                      <tbody>
+                        <tr>
+                          <td style="font-weight: bold;text-align: center;" *ngIf="twowaypallet==true">Two way Pallet
+                          </td>
+                          <td style="font-weight: bold;text-align: center;" *ngIf="fourwaypallet==true"> Four way Pallet</td>
+                          <td *ngIf="heattreated==true">
+                            <span style="font-weight: bold;text-align: center;">Heat Treated </span>
+                          </td>
+                          <td *ngIf="fumigated==true">
+                            <span style="font-weight: bold;text-align: center;">Fumigated </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-4">
+                    <table class="table table-bordered modaltab">
+                      <tbody>
+                        <tr>
+                          <td style="font-weight:bold;padding: 10px !important;text-align: center !important;" *ngIf="forklift==true">Forklift</td>
+                          <td style="font-weight:bold;padding: 10px !important;text-align: center !important;" *ngIf="manual==true">Manual</td>
+                          <td style="font-weight:bold;padding: 10px !important;text-align: center !important;" *ngIf="others==true">{{
+                            modaldata?.packagingDetails?.handleReason}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-12" *ngIf="vci==true || rpoil==true ||  cpna==true">
+                  <div class="col-md-4">
+                    <p class="modaltab" style="white-space: nowrap">CORROSION PROTECTION METHOD</p>
+                  </div>
+                  <div class="col-md-8"></div>
+
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-12 ">
+                    <table class="table table-bordered modaltab ">
+                      <tbody>
+                        <tr *ngIf="vci==true">
+                          <th style="width: 25%;">VCI</th>
+                          <td>{{modaldata?.packagingDetails?.vcispec}}</td>
+                        </tr>
+                        <tr *ngIf="rpoil==true">
+                          <th style="width: 25%;">RP Oil</th>
+                          <td>{{modaldata?.packagingDetails?.rpoilspec}}</td>
+                        </tr>
+                        <tr *ngIf="cpna==true">
+                          <th style="width: 25%;">NA</th>
+                          <td>{{modaldata?.packagingDetails?.nareason}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 " style="margin: 0px;padding: 0px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-11 outertableborder">
+                  <table class="table table-bordered modaltable">
+                    <tbody>
+                      <tr>
+                        <th>Length (mm)</th>
+                        <td>{{modaldata?.partDetails?.partlength}}</td>
+                        <th>Width (mm)</th>
+                        <td>{{modaldata?.partDetails?.partwidth}}</td>
+                        <th>Height (mm)</th>
+                        <td>{{modaldata?.partDetails?.partheight}}</td>
+                      </tr>
+                      <tr>
+                        <th>Weight(kgs)</th>
+                        <td>{{modaldata?.partDetails?.partweight}}</td>
+                        <th>Diameter(mm)</th>
+                        <td>{{modaldata?.partDetails?.partdia}}</td>
+                        <th>Usage/Vehicle(nos)</th>
+                        <td>{{modaldata?.partDetails?.usagepervehicle}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-12 mt-10 " style="margin-bottom: 7px;">
+                  <p style="padding-left: 6% !important;"> PRIMARY PACKAGING</p>
+                </div>
+                <div class="col-md-1 "></div>
+                <div class="col-md-11   outertableborder">
+                  <table class="table table-bordered modaltable">
+                    <tbody>
+                      <tr>
+                        <th style="width: 75%;">Packaging Type</th>
+                        <td colspan="2">{{modaldata?.primaryPackaging?.packagingtype |titlecase}}</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Code</th>
+                        <td colspan="2">{{modaldata?.primaryPackaging?.packagingcode}}</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Length</th>
+                        <td>{{modaldata?.primaryPackaging?.packlength}}</td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Width</th>
+                        <td>{{modaldata?.primaryPackaging?.packwidth}}</td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Height</th>
+                        <td>{{modaldata?.primaryPackaging?.packheight}}</td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Tare Wt. (Empty Container + Dunnage / pallet Wt.)</th>
+                        <td>{{modaldata?.primaryPackaging?.tareweight}}</td>
+                        <td>kgs</td>
+                      </tr>
+                      <tr>
+                        <th>Pieces / Container (Packaging Quantity)</th>
+                        <td>{{modaldata?.primaryPackaging?.piecespercontainer}}</td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th> DICV Packaging Label Affixed</th>
+                        <td colspan="2"> {{modaldata?.primaryPackaging?.dicvPack |uppercase}}</td>
+
+                      </tr>
+                      <tr>
+                        <th>Collapsible Height</th>
+                        <td>{{modaldata?.primaryPackaging?.collapsibleheight}}</td>
+                        <td>mm</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-12  mt-10 " style="margin-bottom: 7px;">
+                  <p style="padding-left: 6% !important;"> SECONDARY PACKAGING</p>
+                </div>
+                <div class="col-md-1  "></div>
+                <div class="col-md-11   outertableborder">
+                  <table class="table table-bordered modaltable">
+                    <tbody>
+                      <tr>
+                        <th style="width: 75%;">Bin / Layer</th>
+                        <td>{{(modaldata?.secondaryPackaging?.boxesperlayer != null) ?
+                          modaldata?.secondaryPackaging?.boxesperlayer
+                          : '-' }}</td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th>No. Of layer / pallet load</th>
+                        <td>{{(modaldata?.secondaryPackaging?.nooflayers != null) ?
+                          modaldata?.secondaryPackaging?.nooflayers :
+                          '-' }}
+                        </td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th>No. Of Bin / palletized load</th>
+                        <td>{{(modaldata?.secondaryPackaging?.noofboxes != null) ?
+                          modaldata?.secondaryPackaging?.noofboxes : '-'}}</td>
+                        <td>boxes</td>
+                      </tr>
+                      <tr>
+                        <th>Palletized Load Quantity(No. of parts per pallet)</th>
+                        <td>{{(modaldata?.secondaryPackaging?.loadquantity != null) ?
+                          modaldata?.secondaryPackaging?.loadquantity
+                          : '-' }}</td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Length</th>
+                        <td>{{(modaldata?.secondaryPackaging?.packlength != null) ?
+                          modaldata?.secondaryPackaging?.packlength :
+                          '-' }}</td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Width</th>
+                        <td>{{(modaldata?.secondaryPackaging?.packwidth != null) ?
+                          modaldata?.secondaryPackaging?.packwidth : '-'
+                          }}
+                        </td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Packaging Height</th>
+                        <td>{{(modaldata?.secondaryPackaging?.packheight != null) ?
+                          modaldata?.secondaryPackaging?.packheight :
+                          '-' }}</td>
+                        <td>mm</td>
+                      </tr>
+                      <tr>
+                        <th>Tare Wt. (Empty Container + Dunnage / pallet Wt.)</th>
+                        <td>{{(modaldata?.secondaryPackaging?.tareweight != null) ?
+                          modaldata?.secondaryPackaging?.tareweight :
+                          '-' }}</td>
+                        <td>kgs</td>
+                      </tr>
+                      <tr>
+                        <th>Gross Wt. of container/ pallatized load</th>
+                        <td>{{(modaldata?.secondaryPackaging?.grossweight != null) ?
+                          modaldata?.secondaryPackaging?.grossweight
+                          : '-' }}
+                        </td>
+                        <td>kgs</td>
+                      </tr>
+                      <tr>
+                        <th>Per Day Production Volume</th>
+                        <td>{{(modaldata?.secondaryPackaging?.perdayprodvol != null) ?
+                          modaldata?.secondaryPackaging?.perdayprodvol
+                          : '-' }}
+                        </td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th>No. of containers in a loop</th>
+                        <td>{{(modaldata?.secondaryPackaging?.noofcontainers != null) ?
+                          modaldata?.secondaryPackaging?.noofcontainers
+                          : '-' }}</td>
+                        <td>nos</td>
+                      </tr>
+                      <tr>
+                        <th>Inventory Day in loop</th>
+                        <td>{{(modaldata?.secondaryPackaging?.inventory != null) ?
+                          modaldata?.secondaryPackaging?.inventory : '-'
+                          }}
+                        </td>
+                        <td>days</td>
+                      </tr>
+                      <tr>
+                        <th>Supply Frequency</th>
+                        <td>{{(modaldata?.secondaryPackaging?.supplyfrequency != null) ?
+                          modaldata?.secondaryPackaging?.supplyfrequency
+                          : '-' }}</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer mt-10">
+              <button type="button" class="btn btn-sm mt-10" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

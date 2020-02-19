@@ -1,0 +1,1160 @@
+<div class="col-md-10 innerbodyScroll wrapper" id="packagingreports">
+  <div class="container-fluid" id="packagingreports">
+    <div class="col-md-10" style="padding-top: 15px;">
+      <p class="showmenuname">Sign-off sheet</p>
+    </div>
+    <div class="col-md-2" routerLink="../Supplierlist" style="text-align: end;"><button class="back-btn">Back</button></div>
+    <div class="row" style="padding-top:20px;">
+
+      <div class="col-md-7" *ngIf="showLoad==true">
+
+        <!-- <ng-container [formGroup]="loadForm">
+        
+          <div class="search-container" style="text-align: right;">
+            <input class="form-control searchbtn bdrinput search-text" type="text" placeholder="Enter Ref No"  autocomplete="off"name="search" style="border-right: none;"  formControlName="refno" (keydown)="lodeenter($event)" >
+            <button class="searchbtn bdrbtn btn-load searcbtn" id='loadDisable' type="button"  style="border-left: none;"  (click)="load()">
+             LOAD
+            </button>
+          </div>
+          <small class="text-danger" *ngIf="!loadForm.controls.refno.valid && loadForm.controls.refno.touched">Numbers Only Allowed
+          </small>
+        </ng-container> -->
+      </div>
+      <!-- <div class="col-md-1" *ngIf="showLoad==true">
+        <i (click)="refresh()" class="fa fa-refresh" style="color:#000;font-size:22px;cursor: pointer;"></i>
+        &nbsp;&nbsp;&nbsp;
+        <br>
+        <small>Reset</small>
+      </div>
+      <div class="col-md-2" *ngIf="showLoad==false"></div> -->
+      <div class="col-md-4" *ngIf="showLoad==true" style="margin-top: 25px;">
+        <!-- <ng-container [formGroup]="loadForm">
+
+          <div class="search-container" style="text-align: right;">
+            <input class="form-control searchbtn bdrinput search-text" type="text" placeholder="Enter Ref No"
+              autocomplete="off" name="search" style="border-right: none;" formControlName="refno"
+              (keydown)="lodeenter($event)">
+            <button class="searchbtn bdrbtn btn-load searcbtn" id='loadDisable' type="button" style="border-left: none;"
+              (click)="load()">
+              LOAD
+            </button>
+          </div>
+          <small class="text-danger" *ngIf="!loadForm.controls.refno.valid && loadForm.controls.refno.touched">Numbers
+            Only Allowed
+          </small>
+        </ng-container> -->
+      </div>
+      <div class="col-md-1" *ngIf="showLoad==true" style="margin-top: 20px">
+        <i (click)="refresh()" class="fa fa-refresh" style="color:#000;font-size:22px;cursor: pointer;"></i>
+        &nbsp;&nbsp;&nbsp;
+        <br>
+        <small>Reset</small>
+      </div>
+      <div class="col-md-3" *ngIf="showLoad==false" style="padding-top: 2%;">
+        <div class="flex">
+          <a href="assets/excel/ReferenceTemplate.xlsx" class="padtop" style="cursor:pointer">Download Template
+            <a href="assets/excel/ReferenceTemplate.xlsx">
+              <i class="fa fa-cloud-download" download></i>
+            </a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div id="Details" class="tab-pane fade in active">
+        <form [formGroup]="signOffSheetForm">
+          <!-- <div class="row">
+            <div class="card cardalign">
+              <div class="col-md-12">
+                <fieldset formGroupName="partDetails">
+                  <div class="">
+                    <p class="padtop">PART DETAILS</p>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Number</label>
+                      <input formControlName="partnumber" placeholder="Enter Part Number" id="partdatas" (input)="partdata($event.target.value)"
+                        class="form-control " autocomplete="off" type="text" list="partdata" name="partdata">
+                      <datalist id="partdata">
+                        <ng-container *ngFor="let list of packdatalists ">
+                          <option value={{list}}></option>
+                        </ng-container>
+                      </datalist>
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partnumber.valid && signOffSheetForm.controls.partDetails.controls.partnumber.touched">Part Number is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Name </label>
+                      <input autocomplete="off" placeholder="Enter Part Name " formControlName="partname" class="form-control" type="text" maxlength="150">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partname.valid && signOffSheetForm.controls.partDetails.controls.partname.touched">Part Name is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Plant Name </label>
+                      <input autocomplete="off" placeholder="Enter Plant Name " formControlName="plantname" class="form-control border-color " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.plantname.valid && signOffSheetForm.controls.partDetails.controls.plantname.touched">Plant Name is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Buyer Name </label>
+                      <input autocomplete="off" placeholder="Enter Buyer Name " formControlName="buyername" class="form-control" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.buyername.valid && signOffSheetForm.controls.partDetails.controls.buyername.touched">Buyer Name is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                   
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Receiving Plant Code</label>
+                      <input autocomplete="off" placeholder="Enter Receiving Plant Code " formControlName="plantcode" class="form-control border-color " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.plantcode.valid && signOffSheetForm.controls.partDetails.controls.plantcode.touched">Receiving Plant Code is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Code</label>
+                      <input id="suppdatass" placeholder="Enter Supplier Code" formControlName="suppliercode" (input)="supplierdata($event.target.value)"
+                        class="form-control" type="text" class="form-control" autocomplete="off" type="text" list="suppliers"
+                        name="suppliers">
+                      <datalist id="suppliers">
+                        <ng-container *ngFor="let list of suppdatalists ">
+                          <option value={{list}}></option>
+                        </ng-container>
+                      </datalist>
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.suppliercode.valid && signOffSheetForm.controls.partDetails.controls.suppliercode.touched">Supplier Code is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Name</label>
+                      <input autocomplete="off" placeholder="Enter Supplier Name" formControlName="suppliername" class="form-control" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.suppliername.valid && signOffSheetForm.controls.partDetails.controls.suppliername.touched">Supplier Name is invalid</small>
+                    </div>
+                    
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">E–mail</label>
+                      <input autocomplete="off" placeholder="Enter E–mail " formControlName="email" class="form-control " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.email.valid && signOffSheetForm.controls.partDetails.controls.email.touched">E–mail is invalid</small>
+                    </div>
+                  
+                  </div>
+                  <div class="col-md-12"  id="padding">
+                    <button type="button" class="btn btn-danger" style="float:right">Initiate Signoff</button>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Contact Number</label>
+                      <input autocomplete="off" placeholder="Enter Contact Number " formControlName="contact" class="form-control " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.contact.valid && signOffSheetForm.controls.partDetails.controls.contact.touched">Contact Number is invalid</small>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div> -->
+          <!-- <fieldset formGroupName="partDetails">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12" >
+                  <div class="">
+                    <p class="padtop" style="padding-top: 8px;">PART INFORMATION</p>
+                  </div>
+                  <div class="col-md-12"  id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Length(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Length(mm)" formControlName="partlength" placeholder="Enter Length" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partlength.valid && signOffSheetForm.controls.partDetails.controls.partlength.touched">Part Length is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Width(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Width(mm)" formControlName="partwidth" placeholder="Enter Width" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partwidth.valid && signOffSheetForm.controls.partDetails.controls.partwidth.touched">Part Width is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Height(mm) </label>
+                      <input autocomplete="off" placeholder="Enter Part Height(mm)" formControlName="partheight" placeholder="Enter Height" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partheight.valid && signOffSheetForm.controls.partDetails.controls.partheight.touched">Part Height is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Diameter(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Diameter(mm)" formControlName="partdia" class="form-control nobordertext border-color"
+                        placeholder="Enter Diameter" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partdia.valid && signOffSheetForm.controls.partDetails.controls.partdia.touched">Part Diameter is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Weight(kgs)</label>
+                      <input autocomplete="off" placeholder="Enter Part Weight(kgs)" formControlName="partweight" class="form-control nobordertext "
+                        placeholder="Enter Part Weight" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partweight.valid && signOffSheetForm.controls.partDetails.controls.partweight.touched">Part Weight is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Usage Per Vehicle(nos)</label>
+                      <input autocomplete="off" placeholder="Enter Usage Per Vehicle" formControlName="usagepervehicle" class="form-control nobordertext "
+                        placeholder="Enter Usage Per Vehicle" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.usagepervehicle.valid && signOffSheetForm.controls.partDetails.controls.usagepervehicle.touched">Usage Per Vehicle is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset> -->
+          <fieldset formGroupName="supplierDetails">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12">
+                  <div class="">
+                    <p class="padtop">SUPPLIER DETAILS</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Code</label>
+                      <input id="suppdatass" placeholder="Enter Supplier Code" formControlName="suppliercode"
+                      class="form-control" type="text"
+                        class="form-control" autocomplete="off" type="text" list="suppliers" name="suppliers">
+                      <datalist id="suppliers">
+                        <ng-container *ngFor="let list of suppdatalists ">
+                          <option value={{list}}></option>
+                        </ng-container>
+                      </datalist>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.suppliercode.valid && signOffSheetForm.controls.supplierDetails.controls.suppliercode.touched">Supplier
+                        Code is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Name</label>
+                      <input autocomplete="off" placeholder="Enter Supplier Name" formControlName="suppliername"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.suppliername.valid && signOffSheetForm.controls.supplierDetails.controls.suppliername.touched">Supplier
+                        Name is invalid</small>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Variant</label>
+                      <input autocomplete="off" placeholder="Enter Variant" formControlName="variant" class="form-control" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.supplierDetails.controls.variant.valid && signOffSheetForm.controls.supplierDetails.controls.variant.touched">Variant is invalid</small>
+                    </div> -->
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Region</label>
+                      <select id="regionselect" class="form-control" formControlName="region">
+                        <option Value="Select" selected disabled> Select Region </option>
+                        <option Value="north"> North </option>
+                        <option Value="west"> West </option>
+                        <option Value="south"> South </option>
+                        <option Value="east"> East</option>
+                        <option Value="central"> Central </option>
+                        <option Value="chennai"> Chennai </option>
+                      </select>
+                      <!-- <span class="dropdown"></span> -->
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.region.valid && signOffSheetForm.controls.supplierDetails.controls.region.touched">Region
+                        is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">E-mail</label>
+                      <input autocomplete="off" placeholder="Enter E-mail" formControlName="email" class="form-control"
+                        type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.email.valid && signOffSheetForm.controls.supplierDetails.controls.email.touched">E-mail
+                        is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Address</label>
+                      <input autocomplete="off" placeholder="Enter Address" formControlName="address"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.address.valid && signOffSheetForm.controls.supplierDetails.controls.address.touched">Address
+                        is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Contact Person</label>
+                      <input autocomplete="off" placeholder="Enter Contact Person" formControlName="contactperson"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.contactperson.valid && signOffSheetForm.controls.supplierDetails.controls.contactperson.touched">Contact
+                        Person is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Contact Number</label>
+                      <input autocomplete="off" placeholder="Enter Contact Number" formControlName="phonenumber"
+                        class="form-control border-color" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.phonenumber.valid && signOffSheetForm.controls.supplierDetails.controls.phonenumber.touched">Contact
+                        Number is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Fax</label>
+                      <input autocomplete="off" placeholder="Enter Fax" formControlName="fax"
+                        class="form-control border-color" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.supplierDetails.controls.fax.valid && signOffSheetForm.controls.supplierDetails.controls.fax.touched">Fax
+                        is invalid</small>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset formGroupName="packageconstruction">
+          <div class="row">
+            <div class="card cardalign ">
+              <div class="col-md-12">
+                <div class="">
+                  <p class="padtop">PACKAGE CONSTRUCTION</p>
+                </div>
+              </div>
+              <div class="row" id="cardforimageOne">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Part Image</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="Partimage1" id="partimage"
+                        [style.background]="'url(' +  assets1 + ')'">
+                        <p *ngIf="show1=='show' "  class="close-icon">X</p>
+                        <!-- <label for="Partimage1" class="partimagelabel">
+                          <img id="partimage" data-toggle="tooltip" title="Upload Part Image" [src]="assets1" alt="..." class="contain cursor ">
+                        </label> -->
+                        <input type="file" class="displaynone" #image1 id="Partimage1"  formControlName="image1"
+                          accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packageconstruction.controls.image1.valid && signOffSheetForm.controls.packageconstruction.controls.image1.touched">image
+                        is invalid</small>
+                    <p class="center text-danger-color">{{errorimage1}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Internal Construction (1/2) Image</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="InternalConstruction1" id="icimage1"
+                        [style.background]="'url(' +  assets2 + ')'">
+                        <p *ngIf="show2=='show' " class="close-icon">X</p>
+                        <!-- <label for="InternalConstruction1" class="partimagelabel">
+                          <img id="icimage1" data-toggle="tooltip" title="Upload Internal Construction (1/2) Image" [src]="assets2" alt="..." class="contain cursor">
+                        </label> -->
+                        <input type="file" class="displaynone" #image2 id="InternalConstruction1"
+                           formControlName="image2" accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    <small class="text-danger"
+                    *ngIf="!signOffSheetForm.controls.packageconstruction.controls.image2.valid && signOffSheetForm.controls.packageconstruction.controls.image2.touched">image
+                    is invalid</small>
+                    <p class="center text-danger">{{errorimage2}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Internal Construction (2/2) Image</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="InternalConstruction2" id="icimage2"
+                        [style.background]="'url(' +  assets3 + ')'">
+                        <p *ngIf="show3=='show' "  class="close-icon">X</p>
+                        <!-- <label for="InternalConstruction2" class="partimagelabel">
+                          <img id="icimage2" data-toggle="tooltip" title="Upload Internal Construction (2/2) Image" [src]="assets3" alt="..." class="contain cursor">
+                        </label> -->
+                        <input type="file" #image3 class="displaynone"  formControlName="image3" id="InternalConstruction2"
+                          accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    <!-- <small class="text-danger"
+                    *ngIf="!signOffSheetForm.controls.packageconstruction.controls.image3.valid && signOffSheetForm.controls.packageconstruction.controls.image3.touched">image
+                    is invalid</small> -->
+                    <p class="center text-danger">{{errorimage3}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" id="cardforimageTwo">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Scratch / Rust Protection</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="ScratchRustProtection" id="srpimage"
+                        [style.background]="'url(' +  assets4 + ')'">
+                        <p *ngIf="show4=='show' "  class="close-icon">X</p>
+                        <!-- <label for="ScratchRustProtection" class="partimagelabel">
+                          <img id="srpimage" data-toggle="tooltip" title="Upload Scratch / Rust Protection" [src]="assets4" alt="..." class="contain cursor">
+                        </label> -->
+                        <input type="file" #image4 class="displaynone" id="ScratchRustProtection"
+                         accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    <p class="center text-danger">{{errorimage4}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Packaging with DICV Label</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="Othersimage" id="otherimage"
+                        [style.background]="'url(' +  assets5 + ')'">
+                        <p *ngIf="show5=='show' "  class="close-icon">X</p>
+                        <!-- <img id="otherimage" data-toggle="tooltip" title="Upload Others Image" [src]="assets5" alt="..." class="contain cursor"> -->
+                        <input type="file" #image5 class="displaynone" id="Othersimage" 
+                          accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    
+                    <p class="center text-danger-color">{{errorimage5}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <p class="center">Final Packaging</p>
+                      <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                    </div>
+                    <div class="form-group">
+                      <span class="card cardimageupload" for="FinalPackaging" id="fpimage"
+                        [style.background]="'url(' +  assets6 + ')'">
+                        <p *ngIf="show6=='show' "  class="close-icon">X</p>
+                        <!-- <label for="FinalPackaging" class="partimagelabel">
+                          <img id="fpimage" data-toggle="tooltip" title="Upload Final Packaging Image" [src]="assets6" alt="..." class="contain cursor">
+                        </label> -->
+                        <input type="file" #image6 class="displaynone"  formControlName="image4" id="FinalPackaging"
+                        accept=".png, .jpg, .jpeg">
+                      </span>
+                    </div>
+                    <small class="text-danger"
+                    *ngIf="!signOffSheetForm.controls.packageconstruction.controls.image4.valid && signOffSheetForm.controls.packageconstruction.controls.image4.touched">image
+                    is invalid</small>
+                    <p class="center text-danger-color">{{errorimage6}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </fieldset>
+          <fieldset formGroupName="packagingDetails">
+            <div class="row">
+              <div class="card cardalign ">
+                <div class="col-md-12" id="padding">
+                  <div class="col-md-7 flex">
+                    <div class="checkbox Temperaturecheckbox">
+                      <input type="checkbox" id="tepmpspec" formControlName="tempStorageSpec"
+                        checked>
+                      <label class="shelllife">
+                        Temperature / Storage Specifications : (applicable only for the parts which will get affected by
+                        temperature variation )
+                      </label>
+                    </div>
+                    <!-- <label class="containercheck">
+                      <input type="checkbox" id="tepmpspec" formControlName="tempStorageSpec" (change)="shelllifecheck($event.target.checked)"
+                        checked>
+                      <span class="checkmark"></span>
+                    </label>&nbsp;&nbsp;&nbsp;
+                    <p class="size11">
+                      Temperature / Storage Specifications : (applicable only for the parts which will get affected by temperature variation )
+                    </p> -->
+                  </div>
+                  <div class="col-md-3">
+                    <div class="flex innerclass">
+                      <p id="shell1" class="innertextbox"> Shelf Life(in months )</p>
+                    </div>
+                    <div class="col-md-2" style="float:right;">
+                      <input autocomplete="off" placeholder="Enter Shelf Life" id="shelllife"
+                        formControlName="shelflife" class="form-control border-color" type="text">
+                      <br>
+                    </div>
+                    <p class=" center " style="color:red"
+                      *ngIf="!signOffSheetForm.controls.packagingDetails.controls.shelflife.valid && signOffSheetForm.controls.packagingDetails.controls.shelflife.touched "
+                      class="bb">Min 1 and Max 2 numbers only allowed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset formGroupName="partoverview">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12">
+                  <div class="">
+                    <p class="padtop">Part Overview</p>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Part Number</label>
+                      <input autocomplete="off" placeholder="Part Number" formControlName="Partnumber"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Partnumber.valid && signOffSheetForm.controls.partoverview.controls.Partnumber.touched">Part
+                        Number is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Part Name</label>
+                      <input autocomplete="off" placeholder="Part Name" formControlName="Partname" class="form-control"
+                        type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Partname.valid && signOffSheetForm.controls.partoverview.controls.Partname.touched">Part
+                        Name is invalid</small>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Variant</label>
+                          <input autocomplete="off" placeholder="Enter Variant" formControlName="variant" class="form-control" type="text">
+                          <small class="text-danger" *ngIf="!signOffSheetForm.controls.supplierDetails.controls.variant.valid && signOffSheetForm.controls.supplierDetails.controls.variant.touched">Variant is invalid</small>
+                        </div> -->
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Variant</label>
+                      <input autocomplete="off" placeholder="Variant" class="form-control border-color"
+                        formControlName="Variant" class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Variant.valid && signOffSheetForm.controls.partoverview.controls.Variant.touched">Variant
+                        is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Consumption Plant Code</label>
+                      <select id="regionselect" class="form-control" formControlName="consumptionplantcode">
+                        <option Value="Select" selected disabled> Consumption Plant Code</option>
+                        <option Value=""> </option>
+                        <option Value=""> </option>
+                        <option Value=""> </option>
+                        <option Value=""> </option>
+                        <option Value=""> </option>
+                        <option Value=""> </option>
+                      </select>
+                      <!-- <input autocomplete="off" placeholder="Consumption Plant Code" formControlName="consumptionplantcode" class="form-control" type="text"> -->
+                      <!-- <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.consumptionplantcode.valid && signOffSheetForm.controls.consumptionplantcode.controls.Partnumber.touched">Consumption Plant Code</small> -->
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Plant Name</label>
+                      <input autocomplete="off" placeholder="Plant Name" formControlName="Plantname"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Plantname.valid && signOffSheetForm.controls.partoverview.controls.Plantname.touched">Plant 
+                        Name is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Buyer Name</label>
+                      <input autocomplete="off" placeholder="Buyer Name" formControlName="Buyername"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Buyername.valid && signOffSheetForm.controls.partoverview.controls.Buyername.touched">Buyer
+                        Name is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding">
+
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Contact No.</label>
+                      <input autocomplete="off" placeholder="Contact No" formControlName="Contactno"
+                        class="form-control" type="text">
+                        <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partoverview.controls.Contactno.valid && signOffSheetForm.controls.partoverview.controls.Contactno.touched">Contact No
+                         is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">E-mail</label>
+                      <input autocomplete="off" placeholder="E-mail" formControlName="mail" class="form-control"
+                        type="text">
+                      <small class="text-danger"
+                      *ngIf="!signOffSheetForm.controls.partoverview.controls.mail.valid && signOffSheetForm.controls.partoverview.controls.mail.touched">E-mail
+                        is invalid</small>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset formGroupName="partdesc">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12" id="padding" style="padding-left: 45px;
+              padding-right: 46px;">
+             
+               
+                 
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="padding" style="padding-left: 0px;">
+                    <p class="padtop">Part Information</p>
+                    <div class="row">
+                      <div class="col-sm-4" style="padding-left: 0px;">
+                        <label class="control-label titlesuplier ">Length (mm) </label>
+                        <input autocomplete="off" placeholder="Length (mm) " formControlName="Length"
+                          class="form-control" type="text">
+                        <small class="text-danger"
+                          *ngIf="!signOffSheetForm.controls.partdesc.controls.Length.valid && signOffSheetForm.controls.partdesc.controls.Length.touched">Length (mm) is invalid</small>
+                      </div>
+                       <div class="col-sm-4">
+                        <label class="control-label titlesuplier ">Width (mm)</label>
+                        <input autocomplete="off" placeholder="Width (mm)" formControlName="Width"
+                          class="form-control" type="text">
+                        <small class="text-danger"
+                          *ngIf="!signOffSheetForm.controls.partdesc.controls.Width.valid && signOffSheetForm.controls.partdesc.controls.Width.touched">Width (mm) is invalid</small>
+                      </div>
+                       <div class="col-sm-4">
+                        <label class="control-label titlesuplier">Height (mm)</label>
+                        <input autocomplete="off" placeholder="Height (mm)" formControlName="Height"
+                          class="form-control" type="text">
+                        <small class="text-danger"
+                          *ngIf="!signOffSheetForm.controls.partdesc.controls.Height.valid && signOffSheetForm.controls.partdesc.controls.Height.touched">Height (mm) is invalid</small>
+                      </div> 
+                    </div>
+                   <div class="row" style="padding: 24px 0px 0px 0px;">
+                    <div class="col-sm-4" style="padding-left: 0px;">
+                      <label class="control-label titlesuplier ">Diameter (mm)</label>
+                      <input autocomplete="off" placeholder="Diameter (mm)" formControlName="Diameter"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partdesc.controls.Diameter.valid && signOffSheetForm.controls.partdesc.controls.Diameter.touched">Diameter (mm) is invalid</small>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Part Weight </label>
+                      <input autocomplete="off" placeholder="partweight" formControlName="partweight"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.partdesc.controls.partweight.valid && signOffSheetForm.controls.partdesc.controls.partweight.touched">Supplier
+                        Name is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Part Category</label>
+                      <input autocomplete="off" placeholder="Part Category" formControlName="partcategory"
+                        class="form-control" type="text">
+                      <small class="text-danger"
+                      *ngIf="!signOffSheetForm.controls.partdesc.controls.partcategory.valid && signOffSheetForm.controls.partdesc.controls.partcategory.touched">Supplier
+                        Name is invalid</small>
+                    </div>
+                   </div>
+                
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="row">
+            <div class="card cardalign">
+              <div class="col-md-12" id="padding">
+                <fieldset formGroupName="primaryPackaging">
+                  <div class="flex">
+                    <p class="padtop">PRIMARY PACKAGING ( Main Container / Sub Container )</p>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Package Type </label>
+                      <select id="typepack" class="form-control" formControlName="packagingtype"
+                     >
+                        <option Value="Select" selected disabled> Select Package Type </option>
+                        <option Value="returnable"> Returnable </option>
+                        <option Value="nonreturnable"> Non–Returnable </option>
+                      </select>
+                      <!-- <span class="dropdown"></span> -->
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packagingtype.valid && signOffSheetForm.controls.primaryPackaging.controls.packagingtype.touched">Package
+                        Type is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Package Code </label>
+                      <input autocomplete="off" placeholder="Enter Package Code" class="form-control" type="text"
+                        formControlName="packagingcode">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packagingcode.valid && signOffSheetForm.controls.primaryPackaging.controls.packagingcode.touched">Package
+                        Code is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="flex" style="margin-top: 6vh;">
+                        <div class="checkbox">
+                          <input type="checkbox" formControlName="dicvPack" 
+                            class='disableNgStyle' id='dicvcheck' disabled="disabled" checked="checked">
+                          <label id="dfcipackid">
+                            DICV Packaging Label Affixed
+                          </label>
+                        </div>
+                        <!-- <label class="containercheck nopointer">
+                          <input type="checkbox" formControlName="dicvPack" (change)="dfcipack($event.target.checked)" class='disableNgStyle' id='dicvcheck' disabled="disabled" checked="checked">
+                          <span class="checkmark"></span>
+                        </label>
+                        <p id="dfcipackid" class="checkpara">&nbsp;&nbsp;DICV Packaging Label Affixed </p> -->
+                      </div>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.dicvPack.valid && signOffSheetForm.controls.primaryPackaging.controls.dicvPack.touched">DICV
+                        Packaging Label Affixed is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Package length(mm) </label>
+                      <input autocomplete="off" placeholder="Enter Package length(mm)" class="form-control" type="text"
+                        formControlName="packlength">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packlength.valid && signOffSheetForm.controls.primaryPackaging.controls.packlength.touched">Package
+                        length is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Package Width(mm) </label>
+                      <input autocomplete="off" placeholder="Enter Package width(mm)" class="form-control" type="text"
+                        formControlName="packwidth">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packwidth.valid && signOffSheetForm.controls.primaryPackaging.controls.packwidth.touched">Package
+                        Width is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Package Height(mm)</label>
+                      <input  autocomplete="off"
+                        placeholder="Enter Package height(mm)" class="form-control" type="text"
+                        formControlName="packheight">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packheight.valid && signOffSheetForm.controls.primaryPackaging.controls.packheight.touched">Package
+                        Height is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Pieces per Container(nos) </label>
+                      <input autocomplete="off"
+                        placeholder="Enter Pieces per Container(nos)" class="form-control" type="text"
+                        formControlName="piecespercontainer">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.piecespercontainer.valid && signOffSheetForm.controls.primaryPackaging.controls.piecespercontainer.touched">Pieces
+                        per Container is invalid</small>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Tare Wt.(Kgs)</label>
+                      <input autocomplete="off" placeholder="Enter Tare Wt. - Kgs" class="form-control" type="text"
+                        formControlName="tareweight" >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.tareweight.valid && signOffSheetForm.controls.primaryPackaging.controls.tareweight.touched">Tare
+                        Weight is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Collapsible Height(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Collapsible Height(mm)"
+                        class="form-control border-color" type="text" formControlName="collapsibleheight"
+                       >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.collapsibleheight.valid && signOffSheetForm.controls.primaryPackaging.controls.collapsibleheight.touched">Collapsible
+                        Height is invalid</small>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="card cardalign">
+              <div class="col-md-12">
+                <fieldset formGroupName="secondaryPackaging">
+                  <div class="flex">
+                    <p class="padtop">SECONDARY PACKAGING (Palletized Load) </p>
+                  </div>
+
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Packaging Length(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Packaging Length(mm)"
+                        class="form-control border-color" type="text" formControlName="packlength">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packlength.valid && signOffSheetForm.controls.secondaryPackaging.controls.packlength.touched">Packaging
+                        Length is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Packaging Width(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Packaging Width(mm)"
+                        class="form-control border-color" type="text" formControlName="packwidth">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packwidth.valid && signOffSheetForm.controls.secondaryPackaging.controls.packwidth.touched">Packaging
+                        Width is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Packaging Height(mm)</label>
+                      <input disabled autocomplete="off" placeholder="Enter Packaging Height(mm)"
+                        class="form-control border-color" type="text" formControlName="packheight">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packheight.valid && signOffSheetForm.controls.secondaryPackaging.controls.packheight.touched">Packaging
+                        Height is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">
+                        Boxes per layer(nos)</label>
+                      <input autocomplete="off"
+                        placeholder="Enter Boxes per layer(nos)" class="form-control border-color" type="text"
+                        formControlName="boxesperlayer">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.boxesperlayer.valid && signOffSheetForm.controls.secondaryPackaging.controls.boxesperlayer.touched">
+                        Boxes per layer is invalid</small>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">No.of layers per pallet load(nos)</label>
+                      <input autocomplete="off"
+                        placeholder="Enter No.of layers per pallet load(nos)" class="form-control border-color"
+                        type="text" formControlName="nooflayers" >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.nooflayers.valid && signOffSheetForm.controls.secondaryPackaging.controls.nooflayers.touched">No.of
+                        layers per pallet load is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">No.of boxes per palletized Load(Boxes) </label>
+                      <input disabled autocomplete="off" placeholder="Enter No.of boxes per palletized Load(Boxes)"
+                        class="form-control border-color" type="text" formControlName="noofboxes"
+                        (input)="('pripackheight')">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.noofboxes.valid && signOffSheetForm.controls.secondaryPackaging.controls.noofboxes.touched">No.of
+                        boxes per palletized Load is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Palletized Load Quantity (p/p)(nos)</label>
+                      <input disabled autocomplete="off" placeholder="Enter Palletized Load Quantity (p/p)(nos)"
+                        class="form-control border-color" type="text" formControlName="loadquantity"
+                        >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.loadquantity.valid && signOffSheetForm.controls.secondaryPackaging.controls.loadquantity.touched">Palletized
+                        Load Quantity (p/p) is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Tare Wt.(Empty Container+Dunnage/pallet Wt.
+                        Kgs)</label>
+                      <input autocomplete="off" placeholder="Enter Tare Wt.(Empty Con.+Dunnage/pallet Wt)Kgs"
+                        class="form-control border-color" type="text" formControlName="tareweight"
+                       >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.tareweight.valid && signOffSheetForm.controls.secondaryPackaging.controls.tareweight.touched">Tare
+                        Weight is invalid</small>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Gross Wt. of Container / Palletized Load (Kgs)</label>
+                      <input disabled autocomplete="off"
+                        placeholder="Enter Gross Wt. of Container / Palletized Load Kgs"
+                        class="form-control border-color" type="text" formControlName="grossweight"
+                       >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.grossweight.valid && signOffSheetForm.controls.secondaryPackaging.controls.grossweight.touched">Gross
+                        Wt. of Container / Palletized Load is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Per day Production volume (nos)</label>
+                      <input autocomplete="off" placeholder="Enter Per day Production volume"
+                        class="form-control border-color" type="text" formControlName="perdayprodvol"
+                       >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.perdayprodvol.valid && signOffSheetForm.controls.secondaryPackaging.controls.perdayprodvol.touched">Per
+                        day Production volume is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Inventory Day (days)</label>
+                      <input autocomplete="off" placeholder="Enter Inventory Day" class="form-control" type="text"
+                        formControlName="inventory" >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.inventory.valid && signOffSheetForm.controls.secondaryPackaging.controls.inventory.touched">Inventory
+                        Day is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">No.of Containers in the loop(Pallets)</label>
+                      <input autocomplete="off" placeholder="Enter No.of Containers in the loop(Pallets)"
+                        class="form-control border-color" type="text" formControlName="noofcontainers"
+                       >
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.noofcontainers.valid && signOffSheetForm.controls.secondaryPackaging.controls.noofcontainers.touched">No.of
+                        Containers in the loop is invalid</small>
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Supply Frequency</label>
+                      <input autocomplete="off" placeholder="Enter Supply Frequency" class="form-control border-color"
+                        type="text" formControlName="supplyfrequency">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.supplyfrequency.valid && signOffSheetForm.controls.secondaryPackaging.controls.supplyfrequency.touched">Supply
+                        Frequency is invalid</small>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+
+          <fieldset formGroupName="packagingDetails">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12">
+                  <div class="flex">
+                    <p class="padtop">CORROSION PROTECTION METHOD ( If applied check the box )
+                    </p>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="flex">
+                      <div class="checkbox">
+                        <input i type="checkbox" formControlName="rpoil" value="rpoilspec"
+                          id="rpoil">
+                        <label id="palrpi">
+                          Rust Prevention Oil
+                        </label>
+                      </div>
+                      <!-- <label id="nopointer" class="containercheck">
+                        <input type="checkbox" formControlName="rpoil" value="rpoilspec" (change)="checkspeck($event.target.checked,$event.target.value)"
+                          id="rpoil">
+                        <span class="checkmark"></span>
+                      </label>
+                      <p id="palrpi">Rust Prevention Oil </p> -->
+                    </div>
+                    <!-- (blur)="inputSepc($event,'rpoil')"
+                    (keydown)="inputSepc($event,'rpoil')" -->
+                    <span *ngIf="rpoilspecdisplay=='show' ">
+                      <input autocomplete="off" class="form-control error" id="rpoiltext"
+                        type="text" placeholder="RP Oil Specification"
+                        formControlName="rpoilspec">
+                      <small class="text-danger"></small>
+                      <br>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.rpoilspec.valid && signOffSheetForm.controls.packagingDetails.controls.rpoilspec.touched">Min
+                        3 and Max 200 char is requred</small>
+                    </span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="flex">
+                      <div class="checkbox">
+                        <input i type="checkbox" formControlName="rpoil" value="rpoilspec"
+                          id="rpoil">
+                        <label id="palrpi">
+                          Rust Prevention Oil Specification
+                        </label>
+                      </div>
+                      <!-- <label id="nopointer" class="containercheck">
+                          <input type="checkbox" formControlName="rpoil" value="rpoilspec" (change)="checkspeck($event.target.checked,$event.target.value)"
+                            id="rpoil">
+                          <span class="checkmark"></span>
+                        </label>
+                        <p id="palrpi">Rust Prevention Oil </p> -->
+                    </div>
+                    <!-- (blur)="inputSepc($event,'rpoil')"
+                      (keydown)="inputSepc($event,'rpoil')" -->
+                    <span *ngIf="rpoilspecdisplay=='show' ">
+                      <input autocomplete="off" class="form-control error" id="rpoiltext"
+                       type="text" placeholder="RP Oil Specification"
+                        formControlName="rpoilspec">
+                      <small class="text-danger"></small>
+                      <br>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.rpoilspec.valid && signOffSheetForm.controls.packagingDetails.controls.rpoilspec.touched">Min
+                        3 and Max 200 char is requred</small>
+                    </span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="flex">
+                      <div class="checkbox">
+                        <input i type="checkbox" formControlName="vci" value="vcispec"
+                         id="vci">
+                        <label id="palvci">
+                          VCI ( Volatile Corrosion Inhibitor )
+                        </label>
+                      </div>
+                      <!-- <label class="containercheck" id="nopointer1">
+                        <input type="checkbox" formControlName="vci" value="vcispec" (change)="checkspeck($event.target.checked,$event.target.value)"
+                          id="vci">
+                        <span class="checkmark"></span>
+                      </label>
+                      <p id="palvci">VCI ( Volatile Corrosion Inhibitor )</p> -->
+                    </div>
+                    <span *ngIf="vcispecdisplay=='show' ">
+                      <input autocomplete="off" class="form-control error" id="vcispectext"
+                        type="text" placeholder="VCI Specification"
+                        formControlName="vcispec">
+                      <small class="text-danger"></small>
+                      <br>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.vcispec.valid && signOffSheetForm.controls.packagingDetails.controls.vcispec.touched">Min
+                        3 and Max 200 char is requred</small>
+                    </span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="flex">
+                      <div class="checkbox">
+                        <input i type="checkbox" formControlName="cpna" value="naspec"
+                          id="na">
+                        <label>
+                          NA ( Specify the reason )
+                        </label>
+                      </div>
+                      <!-- <label class="containercheck">
+                        <input type="checkbox" formControlName="cpna" value="naspec" (change)="checkspeck($event.target.checked,$event.target.value)"
+                          id="na">
+                        <span class="checkmark"></span>
+                      </label>
+                      <p>NA ( Specify the reason )</p> -->
+
+                    </div>
+                    <span *ngIf="naspecdisplay=='show' ">
+                      <input autocomplete="off" class="form-control error" id="naspectext"
+                        type="text" placeholder="Na reason"
+                        formControlName="nareason">
+                      <small class="text-danger"></small>
+                      <br>
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.nareason.valid && signOffSheetForm.controls.packagingDetails.controls.nareason.touched">Min
+                        3 and Max 200 char is requred</small>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </fieldset>
+          <fieldset formGroupName="packagingDetails">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12">
+                  <div class="flex">
+                    <p class="padtop">PRIMARY PACKING
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier ">Part Protection Details</label>
+                      <input autocomplete="off" placeholder="Enter Part Protection Details" class="form-control border-color"
+                        type="text" formControlName="ppd">
+                      <small class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.ppd.valid && signOffSheetForm.controls.packagingDetails.controls.ppd.touched">Supply
+                        Frequency is invalid</small>
+                    </div>
+                    <div class="col-md-8">
+  
+                    </div>
+                  </div>
+                 
+
+                </div>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 130px;">
+              <div class="col-md-6 pl-0">
+                <div class="card cardalign maxheight">
+                  <div class="flex">
+                    <p class="padtop">WOODEN PALLET
+                    </p>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                    <label class="containerradio" >Two way Pallet
+                      <input id="twowaypallet" type="radio" checked="checked" value="Two way Pallet" name="radio">
+                      <span class="checkmarkradio"></span>
+                    </label>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                    <label class="containerradio">Four way Pallet
+                      <input id="fourwaypallet" type="radio" name="radio" value="Four way Pallet"
+                       >
+                      <span class="checkmarkradio"></span>
+                    </label>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                    <div class="flex">
+                      <div class="checkbox">
+                        <input type="checkbox" id="heattre" type="checkbox" formControlName="heattreated">
+                        <label for="checkbox1">
+                          Heat Treated
+                        </label>
+                      </div>
+                      <!-- <label class="containercheck">
+                          <input id="heattre" type="checkbox" formControlName="heattreated">
+                          <span class="checkmark"></span>
+                        </label>
+                        <p class="checkpara">Heat Treated </p> -->
+                    </div>
+                  </div>
+                  <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                      <div class="flex">
+                        <div class="checkbox">
+                          <input type="checkbox" id="fumigat" type="checkbox" formControlName="fumigated">
+                          <label>
+                            Fumigated
+                          </label>
+                        </div> -->
+                  <!-- <label class="containercheck">
+                          <input id="fumigat" type="checkbox" formControlName="fumigated">
+                          <span class="checkmark"></span>
+                        </label>
+                        <p class="checkpara">Fumigated</p> -->
+                  <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+              <div class="col-md-6 pr-0">
+                <div class="card  cardalign maxheight">
+                  <div class="flex norap">
+                    <p class="padtop">MODE OF HANDLING
+                    </p>
+                  </div>
+
+                  <div class="flex">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                      <label class="containerradio">Forklift
+                        <input id="forkliftrad" type="radio" checked="checked" name="mohradio" value="forklift"
+                        >
+                        <span class="checkmarkradio"></span>
+                      </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                      <label class="containerradio">Manual
+                        <input id="manualred" type="radio" name="mohradio" value="manual"
+                         >
+                        <span class="checkmarkradio"></span>
+                      </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                      <label class="containerradio">Others
+                        <input id="otherrad" type="radio" name="mohradio" value="handleOther"
+                        >
+                        <span class="checkmarkradio"></span>
+                      </label>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding2">
+                      <div class="flex innerclass">
+                        <input autocomplete="off" maxlength="50" placeholder="Enter reason"
+                          formControlName="handleReason" id="modeofhandling" class="form-control modeof" type="text">
+                      </div>
+                      <br>
+                      <p class="text-danger"
+                        *ngIf="!signOffSheetForm.controls.packagingDetails.controls.handleReason.valid && signOffSheetForm.controls.packagingDetails.controls.handleReason.touched">
+                        Min 3 is requred</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="row ">
+            <!-- <div class="card cardalign confirm" style="width:79%"> -->
+              <div class="col-md-8">
+              </div>
+              <div class="col-md-4">
+                <!-- <div class="flex"> -->
+                  <!-- [disabled]="!signOffSheetForm.valid" -->
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Reject">Cancel</button>
+                  <button id="modelEnterDisable" type="button" class="btn btn-danger" data-toggle="modal"
+                    (click)="initiate()">Submit
+                    <!-- <i class="fa fa-external-link-square"></i> -->
+                  </button>
+                <!-- </div>
+              </div> -->
+            </div>
+          </div>
+        </form>
+      </div>
+
+    

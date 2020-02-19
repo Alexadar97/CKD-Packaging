@@ -1,0 +1,1600 @@
+<div class="col-md-10 innerbodyScroll" id="packagingreports">
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12" style="padding-top: 15px;">
+          <span class="showmenuname">Sign Off Report</span>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="card maincard">
+          <div class="col-md-12">
+            <div class="flex">
+              <p class="padtop">SUPPLIER PACKAGING PORTAL
+              </p>
+            </div>
+            <div class="col-md-4">
+              <!-- <div class="input-group">
+                    <input type="text" class="form-control placeholderpad" id="searchplaceholder" placeholder="Search"
+                      #searchvalue (input)="searchsignoff(searchvalue.value)">
+                    <div class="input-group-btn nopading">
+                      <p type="button" class="search-btn" (click)="searchsignoff(searchvalue.value)">
+                        <i class="fa fa-search searchicon"></i>
+                      </p>
+                    </div>
+                  </div> -->
+              <div class="search-container">
+                <input class="searchbtn bdrinput search-text" type="text" id="searchplaceholder" placeholder="Search" name="search"
+                  style="border-right: none;" #searchvalue (input)="searchsignoff(searchvalue.value)" autocomplete="off">
+                <button class="searchbtn bdrbtn btn-load searcbtn" type="button" style="border-left: none;"
+                  (click)="searchsignoff(searchvalue.value)">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" *ngIf="supadmin==true" style="text-align:right;">
+              <a class="cursor" (click)="download()">
+                <img src="assets/img/xlsx.jpg" style='width:38px;'>
+              </a>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" *ngIf="supadmin==true">
+              <a class="cursor" (click)="getAllpdfId()">
+                <img src="assets/img/pdf.png" style='width:38px;'>
+              </a>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" *ngIf="supadmin==true" style="padding:0px">
+              <!-- <a href={{getallpdfapi}} download > -->
+              <!-- <img src="assets/img/xls.jpg" style='width:32px;'><br> -->
+              <!-- <span style="font-weight: bold">SOR</span> -->
+              <!-- </a> -->
+            </div>
+          </div>
+          <br>
+          <div class="col-md-12 table-responsive" style="padding-top: 26px;">
+            <table class="table  table-striped table-bordered  table1" id="myTable2">
+              <thead class="text-danger">
+                <tr>
+                  <th rowspan="2" style="display:none">
+                    <label class="containercheck">
+                      <input type="checkbox" (change)="checkAll($event.target.checked)">
+                      <span class="checkmark aligncheck1"></span>
+                    </label>
+                  </th>
+                  <th rowspan="2">Ref No</th>
+                  <th rowspan="2">Revision No</th>
+                  <th rowspan="2">Part No</th>
+                  <th rowspan="2">Part Name</th>
+                  <th rowspan="2">Supplier</th>
+                  <th rowspan="2">Supplier Code</th>
+                  <th rowspan="2">Supplier Location</th>
+                  <th colspan="3" scope="colgroup">Part</th>
+                  <th colspan="3" scope="colgroup">Packaging</th>
+                  <th colspan="2" scope="colgroup">Packaging Quantity</th>
+                  <th rowspan="2" *ngIf="roleid!=7">Approval Status</th>
+                  <th rowspan="2" *ngIf="roleid==7">Approval Status</th>
+                  <th rowspan="2" *ngIf="roleid==7">Remarks</th>
+                  <th rowspan="2" *ngIf="roleid==7">Approved date</th>
+                  <th rowspan="2" *ngIf="supadmin==true">Edit</th>
+                  <th rowspan="2" *ngIf="supadmin==true">Download</th>
+                </tr>
+                <tr>
+                  <th scope="col">Length(mm)</th>
+                  <th scope="col">Width(mm)</th>
+                  <th scope="col">Height(mm)</th>
+                  <th scope="col">Length(mm) </th>
+                  <th scope="col">Width(mm)</th>
+                  <th scope="col">Height(mm)</th>
+                  <th scope="col">Primary(nos)</th>
+                  <th scope="col">Secondary(nos)</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of detailedreportdatas;let index = index ;">
+                  <td style="display:none">
+                    <label class="containercheck">
+                      <input type="checkbox" class="checksingle" value="{{data.id}}">
+                      <span class="checkmark aligncheck"></span>
+                    </label>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.id}} </p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.revision}} </p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p> {{data.partDetails.partnumber}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.partDetails.partname}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p> {{data.supplierDetails.suppliername}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p> {{data.supplierDetails.suppliercode}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p> {{data.supplierDetails.address}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.partDetails.partlength}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.partDetails.partwidth}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.partDetails.partheight}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.primaryPackaging.packlength}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.primaryPackaging.packwidth}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p>{{data.primaryPackaging.packheight}}</p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p class="center">{{(data.primaryPackaging.piecespercontainer != undefined) ?
+                          data.primaryPackaging.piecespercontainer :
+                          '-'}}
+                    </p>
+                  </td>
+                  <td (click)="viewreport(index)">
+                    <p class="center">{{(data.secondaryPackaging.loadquantity != undefined) ?
+                          data.secondaryPackaging.loadquantity : '-'}}</p>
+                  </td>
+                  <td *ngIf="roleid==7" class="tablepointer italic">
+                    <p *ngIf="data.status=='approved'" style="font-style: normal;" class="text-success"
+                      (click)="viewreport(index)">{{data.status
+                          |uppercase}}</p>
+                    <p *ngIf="data.status=='rejected'" class="text-danger" style="font-style: normal;"
+                      (click)="viewreport(index)">{{data.status
+                          |uppercase}}</p>
+                    <p *ngIf="data.status==null " style="color:#77770d;font-style: normal;" (click)="viewreport(index)">
+                      PENDING</p>
+                  </td>
+                  <td *ngIf="roleid!=7" class="tablepointer italic" (click)="viewstatus(data.id)">
+                    Click Here
+                  </td>
+                  <td *ngIf="roleid==7">
+                    <p>
+                      {{(data.remarks != null) ?
+                              data.remarks : '-'}}
+                    </p>
+                  </td>
+                  <td *ngIf="roleid==7">
+                    <p>
+                      {{(data.approveddate != null) ?
+                              data.approveddate : '-'}}
+                    </p>
+                  </td>
+                  <td *ngIf="supadmin==true">
+                    <p (click)="editmodal(data.id,userid)">
+                      <i class="fa fa-pencil center"></i>
+                    </p>
+                  </td>
+                  <td style="text-align: center" *ngIf="supadmin==true">
+                    <a class="cursor"
+                      (click)="singlepdfDownload(data.id,data.partDetails.partnumber,data.supplierDetails.suppliercode)">
+                      <i class="glyphicon glyphicon-arrow-down">
+                      </i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+              <li [ngClass]="{disabled:pager.currentPage === 1}" style="visibility:hidden">
+                <a (click)="setPage(1)">First</a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)"
+                  style="border: none;color:  #000 !important;font-weight: 500;">
+                  << Previous</a> </li> <li *ngFor="let page of pager.pages"
+                    [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)" style="cursor: pointer">{{page}}</a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)"
+                  style="border: none;color:  #000 !important;font-weight: 500;">Next
+                  >> </a>
+              </li>
+              <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)" style="visibility:hidden">Last</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="viewstatus" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="border:none !important;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Status</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table  table-striped table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th>Stake Holder</th>
+                  <th>Team Name</th>
+                  <th>Status</th>
+                  <th>Assigned time</th>
+                  <th>Updated time</th>
+                  <th>Updated By</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let data of statusdata ;let index = index ;">
+                  <tr *ngIf="data.status!=null">
+                    <td>
+                      <span *ngIf="data.teamname=='SMQ' ">SM</span>
+                      <span *ngIf="data.teamname!='SMQ' ">{{data.teamname |uppercase}}</span>
+                    </td>
+                    <td style="width: 22%;">
+                      <span *ngIf=" data.teamname=='supplier' ">Supplier</span>
+                      <span *ngIf="data.teamname=='MHE' ">MHE</span>
+                      <span *ngIf="data.teamname=='SMQ' ">{{data.teamname1 |titlecase}}</span>
+                      <span *ngIf="data.teamname=='IPL' ">{{data.teamname1 |titlecase}}</span>
+                      <span *ngIf="data.teamname=='production' ">{{data.teamname1 |titlecase}}</span>
+                    </td>
+                    <td>{{data.status |titlecase}}</td>
+                    <td>
+                      {{(data.assignedtime != null) ? data.assignedtime : '-' }}
+                    </td>
+                    <td>
+                      {{(data.updatedtime != null) ? data.updatedtime : '-' }}
+                    </td>
+                    <td>
+                      <p style="text-transform: capitalize;">{{(data.updatedby != null) ? data.updatedby : '-' }}</p>
+                    </td>
+                    <td>
+                      {{(data.remarks != null) ? data.remarks : '-' }}
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer" style="border: none;">
+            <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="editmodal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content modalinnerdesign">
+          <div class="modal-header" style="border:none;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body ">
+            <div id="Details" class="tab-pane fade in active">
+              <form [formGroup]="signOffSheetForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <fieldset formGroupName="partDetails">
+                      <div class="">
+                        <p class="padtop">PART DETAILS</p>
+                      </div>
+                      <div class="col-md-12" style="padding-bottom: 16px;">
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Part Number</label>
+                          <input formControlName="partnumber" placeholder="Enter Part Number" id="partdatas"
+                            (input)="partdata($event.target.value)" class="form-control " autocomplete="off" type="text"
+                            list="partdata" name="partdata">
+                          <datalist id="partdata">
+                            <ng-container *ngFor="let list of packdatalists ">
+                              <option value={{list}}></option>
+                            </ng-container>
+                          </datalist>
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partnumber.valid && signOffSheetForm.controls.partDetails.controls.partnumber.touched">Part
+                            Number is invalid</small>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Part Name </label>
+                          <input autocomplete="off" maxlength="150" placeholder="Enter Part Name "
+                            formControlName="partname" class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partname.valid && signOffSheetForm.controls.partDetails.controls.partname.touched">Part
+                            Name is invalid</small>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Buyer Name </label>
+                          <input autocomplete="off" placeholder="Enter Buyer Name " formControlName="buyername"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.buyername.valid && signOffSheetForm.controls.partDetails.controls.buyername.touched">Buyer
+                            Name is invalid</small>
+                        </div>
+                      </div>
+                      <div class="col-md-12" style="padding-bottom: 16px;">
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Plant Name </label>
+                          <input autocomplete="off" placeholder="Enter Plant Name " formControlName="plantname"
+                            class="form-control " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.plantname.valid && signOffSheetForm.controls.partDetails.controls.plantname.touched">Plant
+                            Name is invalid</small>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Receiving Plant Code</label>
+                          <input autocomplete="off" placeholder="Enter Receiving Plant Code "
+                            formControlName="plantcode" class="form-control " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.plantcode.valid && signOffSheetForm.controls.partDetails.controls.plantcode.touched">Receiving
+                            Plant Code is invalid</small>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">E–mail</label>
+                          <input autocomplete="off" placeholder="Enter E–mail " formControlName="email"
+                            class="form-control " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.email.valid && signOffSheetForm.controls.partDetails.controls.email.touched">E–mail
+                            is invalid</small>
+                        </div>
+                      </div>
+                      <div class="col-md-12" style="padding-bottom: 16px;">
+
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Contact Number</label>
+                          <input autocomplete="off" placeholder="Enter Contact Number " formControlName="contact"
+                            class="form-control " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.contact.valid && signOffSheetForm.controls.partDetails.controls.contact.touched">Contact
+                            Number is invalid</small>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <fieldset formGroupName="partDetails">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="">
+                        <p class="padtop">PART INFORMATION</p>
+                      </div>
+                      <div class="col-md-12" style="padding-bottom: 16px;">
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Part Length (mm)</label>
+                          <input autocomplete="off" placeholder="Enter Part Length (mm)" formControlName="partlength"
+                            placeholder="Enter Length" class="form-control nobordertext " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partlength.valid && signOffSheetForm.controls.partDetails.controls.partlength.touched">Part
+                            Length is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Part Width (mm)</label>
+                          <input autocomplete="off" placeholder="Enter Part Width (mm)" formControlName="partwidth"
+                            placeholder="Enter Width" class="form-control nobordertext " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partwidth.valid && signOffSheetForm.controls.partDetails.controls.partwidth.touched">Part
+                            Width is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label  titlesuplier">Part Height (mm) </label>
+                          <input autocomplete="off" placeholder="Enter Part Height (mm)" formControlName="partheight"
+                            placeholder="Enter Height" class="form-control nobordertext " type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partheight.valid && signOffSheetForm.controls.partDetails.controls.partheight.touched">Part
+                            Height is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                      </div>
+                      <div class="col-md-12" style="padding-bottom: 16px;">
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Part Diameter (mm)</label>
+                          <input autocomplete="off" placeholder="Enter Part Diameter (mm)" formControlName="partdia"
+                            class="form-control nobordertext " placeholder="Enter Diameter" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partdia.valid && signOffSheetForm.controls.partDetails.controls.partdia.touched">Part
+                            Diameter is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Part Weight(kgs)</label>
+                          <input autocomplete="off" placeholder="Enter Part Weight(kgs)" formControlName="partweight"
+                            class="form-control nobordertext " placeholder="Enter Part Weight" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.partweight.valid && signOffSheetForm.controls.partDetails.controls.partweight.touched">Part
+                            Weight is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="col-md-4">
+                          <label class="control-label titlesuplier">Usage Per Vehicle(nos)</label>
+                          <input autocomplete="off" placeholder="Enter Usage Per Vehicle"
+                            formControlName="usagepervehicle" class="form-control nobordertext "
+                            placeholder="Enter Usage Per Vehicle" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.partDetails.controls.usagepervehicle.valid && signOffSheetForm.controls.partDetails.controls.usagepervehicle.touched">Usage
+                            Per Vehicle is invalid</small>&nbsp;&nbsp;&nbsp;
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset formGroupName="supplierDetails">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="">
+                        <p class="padtop">SUPPLIER DETAILS</p>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 16px;">
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Supplier Code</label>
+                          <input id="suppdatass" placeholder="Enter Supplier Code" formControlName="suppliercode"
+                            (input)="supplierdata($event.target.value)" class="form-control" type="text"
+                            class="form-control" autocomplete="off" type="text" list="suppliers" name="suppliers">
+                          <datalist id="suppliers">
+                            <ng-container *ngFor="let list of suppdatalists ">
+                              <option value={{list}}></option>
+                            </ng-container>
+                          </datalist>
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.suppliercode.valid && signOffSheetForm.controls.supplierDetails.controls.suppliercode.touched">Supplier
+                            Code is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Supplier Name</label>
+                          <input autocomplete="off" placeholder="Enter Supplier Name" formControlName="suppliername"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.suppliername.valid && signOffSheetForm.controls.supplierDetails.controls.suppliername.touched">Supplier
+                            Name is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Variant</label>
+                          <input autocomplete="off" placeholder="Enter Variant" formControlName="variant"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.variant.valid && signOffSheetForm.controls.supplierDetails.controls.variant.touched">Variant
+                            is invalid</small>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 16px;">
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">E-mail</label>
+                          <input autocomplete="off" placeholder="Enter E-mail" formControlName="email"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.email.valid && signOffSheetForm.controls.supplierDetails.controls.email.touched">E-mail
+                            is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Address</label>
+                          <input autocomplete="off" placeholder="Enter Address" formControlName="address"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.address.valid && signOffSheetForm.controls.supplierDetails.controls.address.touched">Address
+                            is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Contact Person</label>
+                          <input autocomplete="off" placeholder="Enter Contact Person" formControlName="contactperson"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.contactperson.valid && signOffSheetForm.controls.supplierDetails.controls.contactperson.touched">Contact
+                            Person is invalid</small>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 16px;">
+
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Contact Number</label>
+                          <input autocomplete="off" placeholder="Enter Contact Number" formControlName="phonenumber"
+                            class="form-control" type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.phonenumber.valid && signOffSheetForm.controls.supplierDetails.controls.phonenumber.touched">Contact
+                            Number is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+                          <label class="control-label titlesuplier ">Fax</label>
+                          <input autocomplete="off" placeholder="Enter  Fax" formControlName="fax" class="form-control"
+                            type="text">
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.fax.valid && signOffSheetForm.controls.supplierDetails.controls.fax.touched">Fax
+                            is invalid</small>
+                        </div>
+                        <div class="col-sm-4">
+
+                          <label class="control-label  titlesuplier">Region </label>
+                          <select id="typepack" class="form-control " formControlName="region">
+                            <option Value="Select" selected disabled>Select Region </option>
+                            <option Value="north"> North </option>
+                            <option Value="west"> West </option>
+                            <option Value="south"> South </option>
+                            <option Value="east"> East </option>
+                            <option Value="central"> Central </option>
+                            <option Value="chennai"> Chennai </option>
+                          </select>
+                          <small class="text-danger"
+                            *ngIf="!signOffSheetForm.controls.supplierDetails.controls.region.valid && signOffSheetForm.controls.supplierDetails.controls.region.touched">Region
+                            is invalid</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="row">
+                  <div class="card cardalign ">
+                    <div class="col-md-12">
+                      <div class="">
+                        <p class="padtop">PACKAGE CONSTRUCTION</p>
+                      </div>
+                    </div>
+                    <div class="row" id="cardforimageOne">
+                      <div class="col-md-12">
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Part Image</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="Partimage1" id="partimage"
+                              [style.background]="'url(' +  assets1 + ')'">
+                              <p *ngIf="show1=='show' " (click)="closeimage(1)" class="close-icon">X</p>
+                              <!-- <label for="Partimage1" class="partimagelabel">
+                                    <img id="partimage" data-toggle="tooltip" title="Upload Part Image" [src]="assets1" alt="..." class="contain cursor ">
+                                  </label> -->
+                              <input type="file" class="displaynone" #image1 id="Partimage1"
+                                (change)="changeimage($event,1)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger-color">{{errorimage1}}</p>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Internal Construction (1/2) Image</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="InternalConstruction1" id="icimage1"
+                              [style.background]="'url(' +  assets2 + ')'">
+                              <p *ngIf="show2=='show' " (click)="closeimage(2)" class="close-icon">X</p>
+                              <!-- <label for="InternalConstruction1" class="partimagelabel">
+                                    <img id="icimage1" data-toggle="tooltip" title="Upload Internal Construction (1/2) Image" [src]="assets2" alt="..." class="contain cursor">
+                                  </label> -->
+                              <input type="file" class="displaynone" #image2 id="InternalConstruction1"
+                                (change)="changeimage($event,2)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger">{{errorimage2}}</p>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Internal Construction (2/2) Image</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="InternalConstruction2" id="icimage2"
+                              [style.background]="'url(' +  assets3 + ')'">
+                              <p *ngIf="show3=='show' " (click)="closeimage(3)" class="close-icon">X</p>
+                              <!-- <label for="InternalConstruction2" class="partimagelabel">
+                                    <img id="icimage2" data-toggle="tooltip" title="Upload Internal Construction (2/2) Image" [src]="assets3" alt="..." class="contain cursor">
+                                  </label> -->
+                              <input type="file" #image3 class="displaynone" id="InternalConstruction2"
+                                (change)="changeimage($event,3)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger">{{errorimage3}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" id="cardforimageTwo">
+                      <div class="col-md-12">
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Scratch / Rust Protection</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="ScratchRustProtection" id="srpimage"
+                              [style.background]="'url(' +  assets4 + ')'">
+                              <p *ngIf="show4=='show' " (click)="closeimage(4)" class="close-icon">X</p>
+                              <!-- <label for="ScratchRustProtection" class="partimagelabel">
+                                    <img id="srpimage" data-toggle="tooltip" title="Upload Scratch / Rust Protection" [src]="assets4" alt="..." class="contain cursor">
+                                  </label> -->
+                              <input type="file" #image4 class="displaynone" id="ScratchRustProtection"
+                                (change)="changeimage($event,4)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger">{{errorimage4}}</p>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Packaging with DICV Label</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="Othersimage" id="otherimage"
+                              [style.background]="'url(' +  assets5 + ')'">
+                              <p *ngIf="show5=='show' " (click)="closeimage(5)" class="close-icon">X</p>
+                              <!-- <img id="otherimage" data-toggle="tooltip" title="Upload Others Image" [src]="assets5" alt="..." class="contain cursor"> -->
+                              <input type="file" #image5 class="displaynone" id="Othersimage"
+                                (change)="changeimage($event,5)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger-color">{{errorimage5}}</p>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12">
+                            <p class="center">Final Packaging</p>
+                            <p class="imgtype">(Image-type: JPG/JPEG/PNG)</p>
+                          </div>
+                          <div class="form-group">
+                            <span class="card cardimageupload" for="FinalPackaging" id="fpimage"
+                              [style.background]="'url(' +  assets6 + ')'">
+                              <p *ngIf="show6=='show' " (click)="closeimage(6)" class="close-icon">X</p>
+                              <!-- <label for="FinalPackaging" class="partimagelabel">
+                                    <img id="fpimage" data-toggle="tooltip" title="Upload Final Packaging Image" [src]="assets6" alt="..." class="contain cursor">
+                                  </label> -->
+                              <input type="file" #image6 class="displaynone" id="FinalPackaging"
+                                (change)="changeimage($event,6)" accept=".png, .jpg, .jpeg">
+                            </span>
+                          </div>
+                          <p class="center text-danger-color">{{errorimage6}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <fieldset formGroupName="packagingDetails">
+                  <div class="row">
+                    <div class="card cardalign ">
+                      <div class="col-md-12">
+                        <div class="col-md-7 flex">
+                          <div class="checkbox Temperaturecheckbox">
+                            <input type="checkbox" id="tepmpspec" formControlName="tempStorageSpec"
+                              (change)="shelllifecheck($event.target.checked)" checked>
+                            <label>
+                              Temperature / Storage Specifications : (applicable only for the parts which will get
+                              affected by temperature variation )
+                            </label>
+                          </div>
+                          <!-- <label class="containercheck">
+                                <input type="checkbox" id="tepmpspec" formControlName="tempStorageSpec" (change)="shelllifecheck($event.target.checked)"
+                                  checked>
+                                <span class="checkmark"></span>
+                              </label>&nbsp;&nbsp;&nbsp;
+                              <p class="size11"> -->
+                          <!-- Temperature/Storage Specifications : (applicable only for the parts which will get affected
+                                by temperature variation)
+                              </p> -->
+                        </div>
+                        <div class="col-md-5">
+                          <div class="flex innerclass">
+                            <p class="innertextbox" id="shell1"> Shelf Life(in Months)</p>
+                            <input autocomplete="off" placeholder="Enter Shelf Life" id="shelllife"
+                              formControlName="shellLife" class="form-control" type="text">
+                            <br>
+                          </div>
+                          <p class=" center " style="color:red"
+                            *ngIf="!signOffSheetForm.controls.packagingDetails.controls.shellLife.valid && signOffSheetForm.controls.packagingDetails.controls.shellLife.touched "
+                            class="bb">Min 1 and Max 2 numbers only allowed</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="row">
+                  <div class="card cardalign">
+                    <div class="col-md-12">
+                      <fieldset formGroupName="primaryPackaging">
+                        <div class="flex">
+                          <p class="padtop">PRIMARY PACKAGING ( Main Container/Sub Container )</p>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label  titlesuplier">Package Type </label>
+                            <select id="typepack" class="form-control  select-form" formControlName="packagingtype">
+                              <option Value="Select" selected disabled> Select Package Type </option>
+                              <option Value="returnable"> Returnable </option>
+                              <option Value="nonreturnable"> Non–Returnable </option>
+                            </select>
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packagingtype.valid && signOffSheetForm.controls.primaryPackaging.controls.packagingtype.touched">Package
+                              Type is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">Package Code </label>
+                            <input autocomplete="off" placeholder="Enter Package Code" class="form-control" type="text"
+                              formControlName="packagingcode">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packagingcode.valid && signOffSheetForm.controls.primaryPackaging.controls.packagingcode.touched">Package
+                              Code is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="flex" style="margin-top: 12%;">
+                              <!-- <label class="containercheck nopointer">
+                                <input type="checkbox" formControlName="dicvPack"
+                                  (change)="dfcipack($event.target.checked)" disabled="disabled" checked="checked">
+                                <span class="checkmark"></span>
+                              </label>
+                              <p id="dfcipackid" class="checkpara">&nbsp;&nbsp;DICV Packaging Label Affixed </p> -->
+                              <div class="checkbox">
+                                <input type="checkbox" formControlName="dicvPack"
+                                  (change)="dfcipack($event.target.checked)" disabled="disabled" checked="checked">
+                                <label id="dfcipackid">
+                                  &nbsp;&nbsp;DICV Packaging Label Affixed
+                                </label>
+                              </div>
+                            </div>
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.dicvPack.valid&& signOffSheetForm.controls.primaryPackaging.controls.dicvPack.touched">DICV
+                              Packaging Label Affixed is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">Package length (mm) </label>
+                            <input autocomplete="off" placeholder="Enter Package length (mm)" class="form-control"
+                              type="text" formControlName="packlength">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packlength.valid && signOffSheetForm.controls.primaryPackaging.controls.packlength.touched">Package
+                              length is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label  titlesuplier">Package Width (mm) </label>
+                            <input autocomplete="off" placeholder="Enter Package width (mm)" class="form-control"
+                              type="text" formControlName="packwidth">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packwidth.valid && signOffSheetForm.controls.primaryPackaging.controls.packwidth.touched">Package
+                              Width is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label  titlesuplier">Package Height (mm)</label>
+                            <input autocomplete="off" placeholder="Enter Package height (mm)" class="form-control"
+                              type="text" formControlName="packheight">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.packheight.valid && signOffSheetForm.controls.primaryPackaging.controls.packheight.touched">Package
+                              Height is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Pieces per Container(nos) </label>
+                            <input autocomplete="off" (input)="autocalcParaLoad('p/c')"
+                              placeholder="Enter Pieces per Container(nos)" class="form-control" type="text"
+                              formControlName="piecespercontainer">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.piecespercontainer.valid && signOffSheetForm.controls.primaryPackaging.controls.piecespercontainer.touched">Pieces
+                              per Container is invalid</small>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">Tare Wt. (Kgs)</label>
+                            <input autocomplete="off" placeholder="Enter Tare Wt. - Kgs" class="form-control"
+                              type="text" formControlName="tareweight" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.tareweight.valid && signOffSheetForm.controls.primaryPackaging.controls.tareweight.touched">Tare
+                              Weight is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Collapsible Height (mm)</label>
+                            <input autocomplete="off" placeholder="Enter Collapsible Height (mm)" class="form-control"
+                              type="text" formControlName="collapsibleheight" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.primaryPackaging.controls.collapsibleheight.valid && signOffSheetForm.controls.primaryPackaging.controls.collapsibleheight.touched">Collapsible
+                              Height is invalid</small>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="card cardalign">
+                    <div class="col-md-12">
+                      <fieldset formGroupName="secondaryPackaging">
+                        <div class="flex">
+                          <p class="padtop">SECONDARY PACKAGING (Palletized Load) </p>
+                        </div>
+
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Packaging Length (mm)</label>
+                            <input autocomplete="off" placeholder="Enter Packaging Length  (mm)" class="form-control"
+                              type="text" formControlName="packlength">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packlength.valid && signOffSheetForm.controls.secondaryPackaging.controls.packlength.touched">Packaging
+                              Length is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Packaging Width (mm)</label>
+                            <input autocomplete="off" placeholder="Enter Packaging Width  (mm)" class="form-control"
+                              type="text" formControlName="packwidth">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packwidth.valid && signOffSheetForm.controls.secondaryPackaging.controls.packwidth.touched">Packaging
+                              Width is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">Packaging Height (mm)</label>
+                            <input disabled autocomplete="off" placeholder="Enter Packaging Height  (mm)"
+                              class="form-control" type="text" formControlName="packheight">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.packheight.valid && signOffSheetForm.controls.secondaryPackaging.controls.packheight.touched">Packaging
+                              Height is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">
+                              Boxes per layer(nos)</label>
+                            <input (input)="autocalcParaLoad('boxes')" autocomplete="off"
+                              placeholder="Enter Boxes per layer(nos)" class="form-control" type="text"
+                              formControlName="boxesperlayer">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.boxesperlayer.valid && signOffSheetForm.controls.secondaryPackaging.controls.boxesperlayer.touched">
+                              Boxes per layer is invalid</small>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">No.of layers per pallet load(nos)</label>
+                            <input (input)="autocalcParaLoad('pallet')" autocomplete="off"
+                              placeholder="Enter No.of layers per pallet load(nos)" class="form-control" type="text"
+                              formControlName="nooflayers">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.nooflayers.valid && signOffSheetForm.controls.secondaryPackaging.controls.nooflayers.touched">No.of
+                              layers per pallet load is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">No.of boxes per palletized Load(Boxes) </label>
+                            <input disabled autocomplete="off"
+                              placeholder="Enter No.of boxes per palletized Load(Boxes)" class="form-control"
+                              type="text" formControlName="noofboxes" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.noofboxes.valid && signOffSheetForm.controls.secondaryPackaging.controls.noofboxes.touched">No.of
+                              boxes per palletized Load is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier">Palletized Load Quantity (p/p)(nos)</label>
+                            <input disabled autocomplete="off" placeholder="Enter Palletized Load Quantity (p/p)(nos)"
+                              class="form-control" type="text" formControlName="loadquantity"
+                              (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.loadquantity.valid && signOffSheetForm.controls.secondaryPackaging.controls.loadquantity.touched">Palletized
+                              Load Quantity (p/p) is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Tare Wt. (Empty Container+Dunnage/pallet Wt.
+                              Kgs)</label>
+                            <input autocomplete="off"
+                              placeholder="Enter Tare Wt. (Empty Container+Dunnage/pallet Wt.)Kgs" class="form-control"
+                              type="text" formControlName="tareweight" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.tareweight.valid && signOffSheetForm.controls.secondaryPackaging.controls.tareweight.touched">Tare
+                              Weight is invalid</small>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Gross Wt. of Container/Palletized Load
+                              (Kgs)</label>
+                            <input disabled autocomplete="off"
+                              placeholder="Enter Gross Wt. of Container/Palletized Load Kgs" class="form-control"
+                              type="text" formControlName="grossweight" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.grossweight.valid && signOffSheetForm.controls.secondaryPackaging.controls.grossweight.touched">Gross
+                              Wt. of Container/Palletized Load is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Per day Production volume(nos)</label>
+                            <input autocomplete="off" placeholder="Enter Per day Production volume" class="form-control"
+                              type="text" formControlName="perdayprodvol" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.perdayprodvol.valid && signOffSheetForm.controls.secondaryPackaging.controls.perdayprodvol.touched">Per
+                              day Production volume is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Inventory Day(days)</label>
+                            <input autocomplete="off" placeholder="Enter Inventory Day" class="form-control" type="text"
+                              formControlName="inventory" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.inventory.valid && signOffSheetForm.controls.secondaryPackaging.controls.inventory.touched">Inventory
+                              Day is invalid</small>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">No.of Containers in the loop(Pallets)</label>
+                            <input autocomplete="off" placeholder="Enter No.of Containers in the loop(Pallets)"
+                              class="form-control" type="text" formControlName="noofcontainers"
+                              (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.noofcontainers.valid && signOffSheetForm.controls.secondaryPackaging.controls.noofcontainers.touched">No.of
+                              Containers in the loop is invalid</small>
+                          </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 16px;">
+
+                          <div class="col-md-4">
+                            <label class="control-label titlesuplier ">Supply Frequency</label>
+                            <input autocomplete="off" placeholder="Enter Supply Frequency" class="form-control"
+                              type="text" formControlName="supplyfrequency" (input)="autocalcParaLoad('p/c')">
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.secondaryPackaging.controls.supplyfrequency.valid && signOffSheetForm.controls.secondaryPackaging.controls.supplyfrequency.touched">Supply
+                              Frequency is invalid</small>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+
+
+                <fieldset formGroupName="packagingDetails">
+                  <div class="row">
+                    <div class="card cardalign">
+                      <div class="col-md-12">
+                        <div class="flex">
+                          <p class="padtop">CORROSION PROTECTION METHOD ( If applied check the box )
+                          </p>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="flex">
+                            <div class="checkbox">
+                              <input i type="checkbox" formControlName="rpoil" value="rpoilspec"
+                                (change)="checkspeck($event.target.checked,$event.target.value)" id="rpoil">
+                              <label id="palrpi">
+                                Rust Prevention Oil
+                              </label>
+                            </div>
+                            <!-- <label id="nopointer" class="containercheck">
+                                  <input type="checkbox" formControlName="rpoil" value="rpoilspec" (change)="checkspeck($event.target.checked,$event.target.value)"
+                                    id="rpoil">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <p id="palrpi">Rust Prevention Oil </p> -->
+                          </div>
+
+                          <span *ngIf="rpoilspecdisplay=='show' ">
+                            <input autocomplete="off" class="form-control error" id="rpoiltext"
+                              (blur)="inputSepc($event,'rpoil')" type="text" placeholder="RP Oil Specification"
+                              formControlName="rpoilspec">
+                            <small class="text-danger">{{rpoilspecError}}</small>
+                            <br>
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.packagingDetails.controls.rpoilspec.valid && signOffSheetForm.controls.packagingDetails.controls.rpoilspec.touched">Min
+                              3 and Max 200 char is requred</small>
+                          </span>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="flex">
+                            <!-- <label class="containercheck" id="nopointer1">
+                              <input type="checkbox" formControlName="vci" value="vcispec"
+                                (change)="checkspeck($event.target.checked,$event.target.value)" id="vci">
+                              <span class="checkmark"></span>
+                            </label>
+                            <p id="palvci">VCI (Volatile Corrosion Inhibitor)</p> -->
+                            <div class="checkbox">
+                              <input i type="checkbox" formControlName="vci" value="vcispec"
+                                (change)="checkspeck($event.target.checked,$event.target.value)" id="vci">
+                              <label id="palvci">
+                                VCI (Volatile Corrosion Inhibitor)
+                              </label>
+                            </div>
+                          </div>
+                          <span *ngIf="vcispecdisplay=='show' ">
+                            <input autocomplete="off" class="form-control error" id="vcispectext"
+                              (blur)="inputSepc($event,'vcispec')" type="text" placeholder="VCI Specification"
+                              formControlName="vcispec">
+                            <small class="text-danger">{{vcispecError}}</small>
+                            <br>
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.packagingDetails.controls.vcispec.valid && signOffSheetForm.controls.packagingDetails.controls.vcispec.touched">Min
+                              3 and Max 200 char is requred</small>
+                          </span>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="flex">
+                            <!-- <label class="containercheck">
+                              <input type="checkbox" formControlName="cpna" value="naspec"
+                                (change)="checkspeck($event.target.checked,$event.target.value)" id="na">
+                              <span class="checkmark"></span>
+                            </label>
+                            <p>NA (Specify the reason)</p> -->
+                            <div class="checkbox">
+                              <input i type="checkbox" formControlName="cpna" value="naspec"
+                                (change)="checkspeck($event.target.checked,$event.target.value)" id="na">
+                              <label>
+                                NA (Specify the reason)
+                              </label>
+                            </div>
+
+                          </div>
+                          <span *ngIf="naspecdisplay=='show' ">
+                            <input autocomplete="off" class="form-control error" id="naspectext"
+                              (blur)="inputSepc($event,'naspec')" type="text" placeholder="Na reason"
+                              formControlName="nareason">
+                            <small class="text-danger">{{naspecError}}</small>
+                            <br>
+                            <small class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.packagingDetails.controls.nareason.valid && signOffSheetForm.controls.packagingDetails.controls.nareason.touched">Min
+                              3 and Max 200 char is requred</small>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pl-0">
+                      <div class="card cardalign maxheight">
+                        <div class="flex">
+                          <p class="padtop">BASE PALLET
+                          </p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                          <label class="containerradio" (change)="pallet($event.target.value)">Two way Pallet
+                            <input id="twowaypallet" type="radio" checked="checked" value="Two way Pallet" name="radio">
+                            <span class="checkmarkradio"></span>
+                          </label>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                          <label class="containerradio">Four way Pallet
+                            <input id="fourwaypallet" type="radio" name="radio" value="Four way Pallet"
+                              (change)="pallet($event.target.value)">
+                            <span class="checkmarkradio"></span>
+                          </label>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                          <div class="flex">
+                            <!-- <label class="containercheck">
+                              <input id="heattre" type="checkbox" formControlName="heattreated">
+                              <span class="checkmark"></span>
+                            </label>
+                            <p class="checkpara">Heat Treated </p> -->
+                            <div class="checkbox">
+                              <input id="heattre" type="checkbox" formControlName="heattreated">
+                              <label>
+                                Heat Treated
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                          <div class="flex">
+                            <!-- <label class="containercheck">
+                              <input id="fumigat" type="checkbox" formControlName="fumigated">
+                              <span class="checkmark"></span>
+                            </label>
+                            <p class="checkpara">Fumigated</p> -->
+                            <div class="checkbox">
+                              <input id="fumigat" type="checkbox" formControlName="fumigated">
+                              <label>
+                                Fumigated
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                      <div class="card  cardalign maxheight">
+                        <div class="flex norap">
+                          <p class="padtop">MODE OF HANDLING
+                          </p>
+                        </div>
+                        <div class="flex">
+                          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                            <label class="containerradio">Forklift
+                              <input id="forkliftrad" type="radio" checked="checked" name="mohradio" value="forklift"
+                                (change)="mohradio($event.target.value)">
+                              <span class="checkmarkradio"></span>
+                            </label>
+                          </div>
+                          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                            <label class="containerradio">Manual
+                              <input id="manualred" type="radio" name="mohradio" value="manual"
+                                (change)="mohradio($event.target.value)">
+                              <span class="checkmarkradio"></span>
+                            </label>
+                          </div>
+                          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                            <label class="containerradio">Others
+                              <input id="otherrad" type="radio" name="mohradio" value="handleOther"
+                                (change)="mohradio($event.target.value)"
+                                (click)="modeofhandling($event.target.checked)">
+                              <span class="checkmarkradio"></span>
+                            </label>
+                          </div>&nbsp;&nbsp;
+                          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <div class="flex innerclass handlereason">
+                              <input autocomplete="off" maxlength="50" placeholder="Enter Reason"
+                                formControlName="handleReason" id="modeofhandling" class="form-control modeof"
+                                type="text">
+                            </div>
+                            <br>
+                            <p class="text-danger"
+                              *ngIf="!signOffSheetForm.controls.packagingDetails.controls.handleReason.valid && signOffSheetForm.controls.packagingDetails.controls.handleReason.touched">
+                              Min
+                              3 is requred</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer mt-10">
+            <button type="button" class="btn btn-sm mt-10" (click)="editconfirm()">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="modalView" role="dialog">
+      <div class="modal-dialog modal-lg modalview">
+        <div class="modal-content modalinnerdesign">
+          <div class="modal-header" style="border:none !important;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body ">
+            <div class="row">
+              <div class="col-md-4 mt-10">
+                <img style="width: 50%;" src="./assets/img/side-logo.png">
+              </div>
+              <div class="col-md-4 mt-10">
+                <p class="maintitle pull-left"
+                  style="text-decoration:underline;margin-left: 20%;font-size: 19px;font-weight: 700;">PACKAGING
+                  SIGN OFF SHEET</p>
+              </div>
+              <div class="col-md-4 mt-10">
+                <img style="width: 12%;float:right" src="./assets/img/benz_logo.jpg">
+              </div>
+              <div class="col-md-12  mt-10" style="margin-top: 20px;">
+                <div class="col-md-6 ">
+                </div>
+
+                <div class="col-md-2 ">
+
+                </div>
+                <div class="col-md-2 ">
+                  <div class="flex pull-right">
+                    <label class="partcontentsmall" for="email">Doc Ref No:&nbsp; </label>
+                    <span class="partcontentsmall"> {{modaldata?.id}}</span>
+                  </div>
+                </div>
+                <div class="col-md-2 ">
+                  <div class="flex pull-right">
+                    <label class="partcontentsmall" for="email" style="font-weight: bold;">Variant:&nbsp; </label>
+                    <span class="partcontentsmall"> {{modaldata?.supplierDetails?.variant}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12  mt-10" style="margin-top: 20px;">
+                <p class="col-md-7 pull-left" style="margin-bottom: 7px !important;;">SUPPLIER DETAILS</p>
+                <p class="col-md-5" style="margin-bottom: 7px !important;padding-left: 3.5% !important">PART DETAILS</p>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-7 outertableborder">
+                  <table class="table table-bordered modaltable">
+                    <tbody>
+                      <tr>
+                        <th>Supplier Code</th>
+                        <td>{{modaldata?.supplierDetails?.suppliercode}}</td>
+                        <th>Supplier Name</th>
+                        <td>{{modaldata?.supplierDetails?.suppliername}}</td>
+                      </tr>
+                      <tr>
+                        <th>Supplier Address</th>
+                        <td>{{modaldata?.supplierDetails?.address}}</td>
+                        <th>Region</th>
+                        <td>{{modaldata?.supplierDetails?.region}}</td>
+                      </tr>
+                      <tr>
+                        <th>Contact Person</th>
+                        <td>{{modaldata?.supplierDetails?.contactperson}}</td>
+                        <th>E-Mail</th>
+                        <td>{{modaldata?.supplierDetails?.email}}</td>
+                      </tr>
+                      <tr>
+                        <th>Phone Number</th>
+                        <td>{{modaldata?.supplierDetails?.phonenumber}}</td>
+                        <th>Fax</th>
+                        <td>{{modaldata?.supplierDetails?.fax}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+                <div class="col-md-5" style="margin: 0px;padding: 0px;">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-11 outertableborder">
+                    <table class="table table-bordered modaltable">
+                      <tbody>
+                        <tr>
+                          <th>Part Number</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.partnumber}}</p>
+                          </td>
+                          <th>Plant Code</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.plantcode}}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Part Name</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.partname}}</p>
+                          </td>
+                          <th>Plant Name</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.plantname}}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Buyer Name</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.buyername}}</p>
+                          </td>
+                          <th>Contact Number</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.contact}}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th></th>
+                          <td></td>
+                          <th>E-Mail</th>
+                          <td>
+                            <p
+                              style="   word-wrap: break-word;width: 90px; font-size: 11px !important;     text-align: left !important;     font-weight: 300;">
+                              {{modaldata?.partDetails?.email}}</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12  mt-10" style="padding-top: 10px;">
+                <p class="col-md-7 pull-left">PACKAGING CONSTRUCTION</p>
+                <p class="col-md-5 " style="padding-left: 3.5% !important;">PART INFORMATION</p>
+              </div>
+              <div class="col-md-12  mt-10">
+                <div class="col-md-7" style="padding: 0px;">
+                  <div class="col-md-12 outertableborder">
+                    <div class="col-md-12" style="padding-top: 10px;">
+                      <p class="col-md-4 partmodaltitle pull-left">Part Image</p>
+                      <p class="col-md-4 partmodaltitle pull-left">Internal Construction (1/2)</p>
+                      <p class="col-md-4 partmodaltitle pull-left">Internal Construction (2/2)</p>
+                    </div>
+                    <div style="padding: 0px;" class="col-md-12">
+                      <div class="col-md-4  outertableborder" style="border-right:none;">
+                        <img id="imgid1" [src]='' alt="...">
+                      </div>
+                      <div class="col-md-4 outertableborder" style="border-right:none;">
+                        <img id="imgid2" [src]='' alt="...">
+                      </div>
+                      <div class="col-md-4 outertableborder">
+                        <img id="imgid3" [src]='' alt="...">
+                      </div>
+                    </div>
+                    <div class="col-md-12 " style="padding-top: 10px;">
+                      <p class="col-md-4 partmodaltitle pull-left" style="border-right:none;">Scratch/ Rust Protection
+                      </p>
+                      <p class="col-md-4 partmodaltitle pull-left" style="border-right:none;">Packaging with DICV Label
+                      </p>
+                      <p class="col-md-4 partmodaltitle pull-left">Final Packaging</p>
+                    </div>
+                    <div style="padding: 0px;" class="col-md-12  ">
+                      <div style="border-right:none;" class="col-md-4 outertableborder">
+                        <img id="imgid4" [src]='' alt="...">
+                      </div>
+                      <div style="border-right:none;" class="col-md-4 outertableborder">
+                        <img id="imgid5" [src]='' alt="...">
+                      </div>
+                      <div class="col-md-4 outertableborder">
+                        <img id="imgid6" [src]='' alt="...">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mt-10" style="padding-top: 10px;">
+                    <p class="col-md-4 ">SHELF LIFE (Months)</p>
+                    <p class="col-md-4 ">BASE PALLET</p>
+                    <p class="col-md-4 ">MODE OF HANDLING</p>
+                  </div>
+                  <div class="col-md-12 ">
+                    <div class="col-md-4 ">
+                      <table class="table table-bordered modaltab">
+                        <tbody>
+                          <tr>
+                            <td style="font-weight: bold;padding: 10px !important;    text-align: center !important;">
+                              {{(modaldata?.packagingDetails?.tempStorageSpec == 'true') ?
+                                  modaldata?.packagingDetails?.shellLife : 'N/A' }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-4 ">
+                      <table class="table table-bordered modaltab">
+                        <tbody>
+                          <tr>
+                            <td style="font-weight: bold;text-align: center;" *ngIf="twowaypallet==true">Two way Pallet
+                            </td>
+                            <td style="font-weight: bold;text-align: center;" *ngIf="fourwaypallet==true"> Four way
+                              Pallet</td>
+                            <td *ngIf="heattreated==true">
+                              <span style="font-weight: bold;text-align: center;">Heat Treated </span>
+                            </td>
+                            <td *ngIf="fumigated==true">
+                              <span style="font-weight: bold;text-align: center;">Fumigated </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-4">
+                      <table class="table table-bordered modaltab">
+                        <tbody>
+                          <tr>
+                            <td style="font-weight:bold;padding: 10px !important;text-align: center !important;"
+                              *ngIf="forklift==true">Forklift</td>
+                            <td style="font-weight:bold;padding: 10px !important;text-align: center !important;"
+                              *ngIf="manual==true">Manual</td>
+                            <td style="font-weight:bold;padding: 10px !important;text-align: center !important;"
+                              *ngIf="others==true">{{
+                                  modaldata?.packagingDetails?.handleReason}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="vci==true || rpoil==true ||  cpna==true">
+                    <div class="col-md-4">
+                      <p class="modaltab" style="white-space: nowrap">CORROSION PROTECTION METHOD</p>
+                    </div>
+                    <div class="col-md-8"></div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-12 ">
+                      <table class="table table-bordered modaltab ">
+                        <tbody>
+                          <tr *ngIf="vci==true">
+                            <th style="width: 25%;">VCI</th>
+                            <td>{{modaldata?.packagingDetails?.vcispec}}</td>
+                          </tr>
+                          <tr *ngIf="rpoil==true">
+                            <th style="width: 25%;">RP Oil</th>
+                            <td>{{modaldata?.packagingDetails?.rpoilspec}}</td>
+                          </tr>
+                          <tr *ngIf="cpna==true">
+                            <th style="width: 25%;">NA</th>
+                            <td>{{modaldata?.packagingDetails?.nareason}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 " style="margin: 0px;padding: 0px;">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-11 outertableborder">
+                    <table class="table table-bordered modaltable">
+                      <tbody>
+                        <tr>
+                          <th>Length (mm)</th>
+                          <td>{{modaldata?.partDetails?.partlength}}</td>
+                          <th>Width (mm)</th>
+                          <td>{{modaldata?.partDetails?.partwidth}}</td>
+                          <th>Height (mm)</th>
+                          <td>{{modaldata?.partDetails?.partheight}}</td>
+                        </tr>
+                        <tr>
+                          <th>Weight(kgs)</th>
+                          <td>{{modaldata?.partDetails?.partweight}}</td>
+                          <th>Diameter (mm)</th>
+                          <td>{{modaldata?.partDetails?.partdia}}</td>
+                          <th>Usage/Vehicle(nos)</th>
+                          <td>{{modaldata?.partDetails?.usagepervehicle}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-12 mt-10 ">
+                    <p style="padding-left: 6% !important;padding-top: 10px;"> PRIMARY PACKAGING</p>
+                  </div>
+                  <div class="col-md-1 "></div>
+                  <div class="col-md-11   outertableborder">
+                    <table class="table table-bordered modaltable">
+                      <tbody>
+                        <tr>
+                          <th style="width: 77%;">Packaging Type</th>
+                          <td colspan="2">{{modaldata?.primaryPackaging?.packagingtype |titlecase}}</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Code</th>
+                          <td colspan="2">{{modaldata?.primaryPackaging?.packagingcode}}</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Length</th>
+                          <td>{{modaldata?.primaryPackaging?.packlength}}</td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Width</th>
+                          <td>{{modaldata?.primaryPackaging?.packwidth}}</td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Height</th>
+                          <td>{{modaldata?.primaryPackaging?.packheight}}</td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Tare Wt. (Empty Container + Dunnage/pallet Wt.)</th>
+                          <td>{{modaldata?.primaryPackaging?.tareweight}}</td>
+                          <td>kgs</td>
+                        </tr>
+                        <tr>
+                          <th>Pieces/Container (Packaging Quantity)</th>
+                          <td>{{modaldata?.primaryPackaging?.piecespercontainer}}</td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th> DICV Packaging Label Affixed</th>
+                          <td colspan="2"> {{modaldata?.primaryPackaging?.dicvPack |uppercase}}</td>
+
+                        </tr>
+                        <tr>
+                          <th>Collapsible Height</th>
+                          <td>{{modaldata?.primaryPackaging?.collapsibleheight}}</td>
+                          <td>mm</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-12  mt-10 ">
+                    <p style="padding-left: 6% !important;padding-top: 10px;"> SECONDARY PACKAGING</p>
+                  </div>
+                  <div class="col-md-1  "></div>
+                  <div class="col-md-11   outertableborder">
+                    <table class="table table-bordered modaltable">
+                      <tbody>
+                        <tr>
+                          <th style="width: 77%;">Bin/Layer</th>
+                          <td>{{(modaldata?.secondaryPackaging?.boxesperlayer != null) ?
+                                modaldata?.secondaryPackaging?.boxesperlayer
+                                : '-' }}</td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th>No. Of layer/pallet load</th>
+                          <td>{{(modaldata?.secondaryPackaging?.nooflayers != null) ?
+                                modaldata?.secondaryPackaging?.nooflayers :
+                                '-' }}
+                          </td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th>No. Of Bin/palletized load</th>
+                          <td>{{(modaldata?.secondaryPackaging?.noofboxes != null) ?
+                                modaldata?.secondaryPackaging?.noofboxes : '-'}}</td>
+                          <td>boxes</td>
+                        </tr>
+                        <tr>
+                          <th>Palletized Load Quantity(No. of parts per pallet)</th>
+                          <td>{{(modaldata?.secondaryPackaging?.loadquantity != null) ?
+                                modaldata?.secondaryPackaging?.loadquantity
+                                : '-' }}</td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Length</th>
+                          <td>{{(modaldata?.secondaryPackaging?.packlength != null) ?
+                                modaldata?.secondaryPackaging?.packlength :
+                                '-' }}</td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Width</th>
+                          <td>{{(modaldata?.secondaryPackaging?.packwidth != null) ?
+                                modaldata?.secondaryPackaging?.packwidth : '-'
+                                }}
+                          </td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Packaging Height</th>
+                          <td>{{(modaldata?.secondaryPackaging?.packheight != null) ?
+                                modaldata?.secondaryPackaging?.packheight :
+                                '-' }}</td>
+                          <td>mm</td>
+                        </tr>
+                        <tr>
+                          <th>Tare Wt. (Empty Container + Dunnage/pallet Wt.)</th>
+                          <td>{{(modaldata?.secondaryPackaging?.tareweight != null) ?
+                                modaldata?.secondaryPackaging?.tareweight :
+                                '-' }}</td>
+                          <td>kgs</td>
+                        </tr>
+                        <tr>
+                          <th>Gross Wt. of container/ pallatized load</th>
+                          <td>{{(modaldata?.secondaryPackaging?.grossweight != null) ?
+                                modaldata?.secondaryPackaging?.grossweight
+                                : '-' }}
+                          </td>
+                          <td>kgs</td>
+                        </tr>
+                        <tr>
+                          <th>Per Day Production Volume</th>
+                          <td>{{(modaldata?.secondaryPackaging?.perdayprodvol != null) ?
+                                modaldata?.secondaryPackaging?.perdayprodvol
+                                : '-' }}
+                          </td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th>No. of containers in a loop</th>
+                          <td>{{(modaldata?.secondaryPackaging?.noofcontainers != null) ?
+                                modaldata?.secondaryPackaging?.noofcontainers
+                                : '-' }}</td>
+                          <td>nos</td>
+                        </tr>
+                        <tr>
+                          <th>Inventory Day in loop</th>
+                          <td>{{(modaldata?.secondaryPackaging?.inventory != null) ?
+                                modaldata?.secondaryPackaging?.inventory : '-'
+                                }}
+                          </td>
+                          <td>days</td>
+                        </tr>
+                        <tr>
+                          <th>Supply Frequency</th>
+                          <td>{{(modaldata?.secondaryPackaging?.supplyfrequency != null) ?
+                                modaldata?.secondaryPackaging?.supplyfrequency
+                                : '-' }}</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+              <div class="modal-footer mt-10" style="padding-top: 12px;">
+                <button type="button" class="btn btn-sm mt-10" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,174 @@
+<div class="col-md-2 filterby">
+  <!-- <div class="panel-group"  *ngFor="let packtitle of packarray" >
+    <div class="panel panel-default">
+      <a class="panel-heading_new" [routerLink]="[packtitle.path]">
+        <p class="reports" *ngIf=" packtitle.path=='signoffreport'" style="padding-bottom:8px"><i class="fa fa-file" aria-hidden="true" style="font-size: 20px;padding-right: 10px;"  ></i>Reports</p>
+         <p class="panel-title  {{packtitle.class}}" style="padding-bottom:8px" id="packsidebar"> <i class="{{packtitle.icons}}" style="font-size: 20px;padding-right: 10px;"></i>{{packtitle.title}}
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="packdashboard">
+        <p class="panel-title dashboard" style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-puzzle-piece dashboard" style="font-size: 20px;padding-right: 10px;"></i>Dashboard
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <ng-container *ngIf="user=='Export' || user == 'Supplier'">
+  <div class="panel-group">
+    <div class="panel panel-default"  routerLinkActive="active" routerLink="signoffsheet" *ngIf="Export">
+      <ng-container>
+      <a class="panel-heading_new">
+        <p class="panel-title" style="padding-bottom:8px" (click) ="sign()"id="packsidebar"><i class="fa fa-th-large"
+            style="font-size: 20px;padding-right: 10px;"></i>Sign off Sheet
+        </p>
+      </a>
+      </ng-container>
+    </div>
+    <div class="panel panel-default active" style="background: #e2e0e0 !important;"  routerLinkActive="active" routerLink="signoffsheetsupply" *ngIf="Supplier">
+      <ng-container>
+      <a class="panel-heading_new">
+        <p class="panel-title" style="padding-bottom:8px" (click) ="sign()"id="packsidebar"><i class="fa fa-th-large"
+            style="font-size: 20px;padding-right: 10px;"></i>Sign off Sheet
+        </p>
+      </a>
+      </ng-container>
+    </div>
+    </div>
+    
+  </ng-container>
+ <ng-container *ngIf="user=='Export' ">
+  <div class="panel-group">
+    <div class="panel panel-default" routerLinkActive="active" routerLink="exportpackaging">
+      <a class="panel-heading_new" >
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i _ngcontent-c3="" class="fa fa-clone"
+            style="font-size: 20px;padding-right: 10px;"></i>Export Packaging approval
+        </p>
+      </a>
+    </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf=" user=='Enduser' ">
+  <div class="panel-group">
+    <div class="panel panel-default"  routerLinkActive="active" routerLink="Enduserapproval">
+      <a class="panel-heading_new" >
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i class="fa fa-user" aria-hidden="true"
+            style="font-size: 20px;padding-right: 10px;"></i>End user approval
+        </p>
+      </a>
+    </div>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="user=='Export'">
+  <div class="panel-group">
+    <div class="panel panel-default" routerLinkActive="active" routerLink="report">
+      <a class="panel-heading_new" >
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i class="fa fa-file"
+            style="font-size: 20px;padding-right: 10px;"></i>Report
+        </p>
+      </a>
+    
+    </div>
+  </div>
+ </ng-container>
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="signoffreport">
+        <p class="reports" style="padding-bottom:8px"><i class="fa fa-file" aria-hidden="true"
+            style="font-size: 20px;padding-right: 10px;"></i>Reports</p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="signoffreport">
+        <p class="panel-title signoffreport" style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-file-text signoffreport" style="font-size: 20px;padding-right: 10px;"></i>Sign off Report
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="detailreport">
+        <p class="panel-title detailreport" style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-file-code-o detailreport" style="font-size: 20px;padding-right: 10px;"></i>Detail Report
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="mhe-approvel">
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-suitcase mhe-approvel" style="font-size: 20px;padding-right: 10px;"></i>MHE-Approval
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="sm-approvel">
+        <p class="panel-title " style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-check-square sm-approvel" style="font-size: 20px;padding-right: 10px;"></i>SM-Approval
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="ipl-approvel">
+        <p class="panel-title " style="padding-bottom:8px" id="packsidebar"><i
+            class="fa fa-shield ipl-approvel" style="font-size: 20px;padding-right: 10px;"></i>IPL-Approval
+        </p>
+      </a>
+    </div>
+  </div> -->
+
+  <!-- Role names -->
+  <!-- <ng-container  *ngIf="i>0"></ng-container> -->
+
+
+  <!-- <div class="panel-group" *ngFor="let data of allroles; let i=index">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" (click)="roleData(data)" routerLink="rolelist">
+        <p class="panel-title " style="padding-bottom:8px" id="packsidebar"> <i
+            style="font-size: 20px;padding-right: 10px;"></i>{{data.rolename}}
+        </p>
+      </a>
+    </div>
+  </div> -->
+  <!-- </ng-container> -->
+
+  <!-- <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="packaging-manuals">
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i class="fa fa-cubes"
+            style="font-size: 20px;padding-right: 10px;"></i>Packaging-Manuals
+        </p>
+      </a>
+    </div>
+  </div>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="user-management">
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i class="fa fa-users"
+            style="font-size: 20px;padding-right: 10px;"></i>User-Management
+        </p>
+      </a>
+    </div>
+  </div>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <a class="panel-heading_new" routerLink="configuration">
+        <p class="panel-title" style="padding-bottom:8px" id="packsidebar"><i class="fa fa-wrench"
+            style="font-size: 20px;padding-right: 10px;"></i>Configuration
+        </p>
+      </a>
+    </div>
+  </div> -->
+</div>
+<router-outlet></router-outlet>

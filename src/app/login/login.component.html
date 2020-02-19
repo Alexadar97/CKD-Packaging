@@ -1,0 +1,60 @@
+<div class="container-fluid backimg  ">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 nopadding">
+      <div class="login-page"></div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 nopadding">
+      <section class="bg">
+        <div class="brand ">
+          <img class="brand-img" src="./assets/img/logo.png" alt="...">
+          <p style="    padding-top: 20px;"></p>
+        </div>
+        <p></p>
+        <br>
+        <form [formGroup]="loginForm">
+          <div class="form-group">
+            <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+              <label class="namestext">User Name</label>
+              <input class="input100" type="text" formControlName="username">
+              <span class="focus-input100"></span>
+            </div>
+
+
+            <!-- <span class="dropdown"></span> -->
+
+
+
+            <small *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched"
+              class="text-danger">Enter User Name </small>
+          </div>
+        
+          <div class="form-group">
+            <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+              <label class="namestext">Password</label>
+              <input class="input100" type="password" formControlName="password">
+              <span class="focus-input100"></span>
+            </div>
+            <small *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched"
+              class="text-danger">Enter Password</small>
+          </div>
+          <div class="form-group">
+              <label class="namestext">Usertype</label>
+              <select id="typepack"  style="background-color:#c3c1c1"  class="form-control" formControlName="name">
+                <option Value="Select" selected disabled>User</option>
+                <option Value="Export"> Export Packaging </option>
+                <option Value="Supplier"> Supplier </option>
+                <option Value="Enduser"> Enduser </option>
+              </select>
+              <small *ngIf="!loginForm.controls['name'].valid && loginForm.controls['name'].touched"
+              class="text-danger">Select usertype</small>
+            </div>
+
+          <button type="submit" class="btn btn-primary btn-block" (click)="login()">LOGIN</button>
+          <div class="form-group text-danger">
+            {{this.errormsg}}
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

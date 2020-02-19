@@ -1,0 +1,190 @@
+<div class="col-md-10 innerbodyScroll wrapper" id="packagingreports">
+  <div class="container-fluid" id="packagingreports">
+      <div class="col-md-12" style="padding-top: 15px;">
+          <p class="showmenuname">Sign-off sheet</p>
+        </div>
+    <div class="row" style="padding-top:20px;">
+    
+      <div class="col-md-7" *ngIf="showLoad==true">
+        <!-- <ng-container [formGroup]="loadForm">
+        
+          <div class="search-container" style="text-align: right;">
+            <input class="form-control searchbtn bdrinput search-text" type="text" placeholder="Enter Ref No"  autocomplete="off"name="search" style="border-right: none;"  formControlName="refno" (keydown)="lodeenter($event)" >
+            <button class="searchbtn bdrbtn btn-load searcbtn" id='loadDisable' type="button"  style="border-left: none;"  (click)="load()">
+             LOAD
+            </button>
+          </div>
+          <small class="text-danger" *ngIf="!loadForm.controls.refno.valid && loadForm.controls.refno.touched">Numbers Only Allowed
+          </small>
+        </ng-container> -->
+      </div>
+      <!-- <div class="col-md-1" *ngIf="showLoad==true">
+        <i (click)="refresh()" class="fa fa-refresh" style="color:#000;font-size:22px;cursor: pointer;"></i>
+        &nbsp;&nbsp;&nbsp;
+        <br>
+        <small>Reset</small>
+      </div>
+      <div class="col-md-2" *ngIf="showLoad==false"></div> -->
+      <div class="col-md-4" *ngIf="showLoad==true" style="margin-top: 25px;">
+        <ng-container [formGroup]="loadForm">
+        
+          <div class="search-container" style="text-align: right;">
+            <input class="form-control searchbtn bdrinput search-text" type="text" placeholder="Enter Ref No"  autocomplete="off"name="search" style="border-right: none;"  formControlName="refno" (keydown)="lodeenter($event)" >
+            <button class="searchbtn bdrbtn btn-load searcbtn" id='loadDisable' type="button"  style="border-left: none;"  (click)="load()">
+             LOAD
+            </button>
+          </div>
+          <small class="text-danger" *ngIf="!loadForm.controls.refno.valid && loadForm.controls.refno.touched">Numbers Only Allowed
+          </small>
+        </ng-container>
+      </div>
+      <div class="col-md-1" *ngIf="showLoad==true" style="margin-top: 20px">
+        <i (click)="refresh()" class="fa fa-refresh" style="color:#000;font-size:22px;cursor: pointer;"></i>
+        &nbsp;&nbsp;&nbsp;
+        <br>
+        <small>Reset</small>
+      </div>
+      <div class="col-md-3" *ngIf="showLoad==false" style="padding-top: 2%;">
+        <div class="flex">
+          <a href="assets/excel/ReferenceTemplate.xlsx" class="padtop" style="cursor:pointer">Download Template
+            <a href="assets/excel/ReferenceTemplate.xlsx">
+              <i class="fa fa-cloud-download" download></i>
+            </a>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div id="Details" class="tab-pane fade in active">
+        <form [formGroup]="signOffSheetForm">
+          <div class="row">
+            <div class="card cardalign">
+              <div class="col-md-12">
+                <fieldset formGroupName="partDetails">
+                  <div class="">
+                    <p class="padtop">PART DETAILS</p>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Number</label>
+                      <input formControlName="partnumber" placeholder="Enter Part Number" id="partdatas" (input)="partdata($event.target.value)"
+                        class="form-control " autocomplete="off" type="text" list="partdata" name="partdata">
+                      <datalist id="partdata">
+                        <ng-container *ngFor="let list of packdatalists ">
+                          <option value={{list}}></option>
+                        </ng-container>
+                      </datalist>
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partnumber.valid && signOffSheetForm.controls.partDetails.controls.partnumber.touched">Part Number is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Name </label>
+                      <input autocomplete="off" placeholder="Enter Part Name " formControlName="partname" class="form-control" type="text" maxlength="150">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partname.valid && signOffSheetForm.controls.partDetails.controls.partname.touched">Part Name is invalid</small>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Plant Name </label>
+                      <input autocomplete="off" placeholder="Enter Plant Name " formControlName="plantname" class="form-control border-color " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.plantname.valid && signOffSheetForm.controls.partDetails.controls.plantname.touched">Plant Name is invalid</small>
+                    </div>
+                    <!-- <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Buyer Name </label>
+                      <input autocomplete="off" placeholder="Enter Buyer Name " formControlName="buyername" class="form-control" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.buyername.valid && signOffSheetForm.controls.partDetails.controls.buyername.touched">Buyer Name is invalid</small>
+                    </div> -->
+                  </div>
+                  <div class="col-md-12" id="padding">
+                   
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Receiving Plant Code</label>
+                      <input autocomplete="off" placeholder="Enter Receiving Plant Code " formControlName="plantcode" class="form-control border-color " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.plantcode.valid && signOffSheetForm.controls.partDetails.controls.plantcode.touched">Receiving Plant Code is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Code</label>
+                      <input id="suppdatass" placeholder="Enter Supplier Code" formControlName="suppliercode" (input)="supplierdata($event.target.value)"
+                        class="form-control" type="text" class="form-control" autocomplete="off" type="text" list="suppliers"
+                        name="suppliers">
+                      <datalist id="suppliers">
+                        <ng-container *ngFor="let list of suppdatalists ">
+                          <option value={{list}}></option>
+                        </ng-container>
+                      </datalist>
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.suppliercode.valid && signOffSheetForm.controls.partDetails.controls.suppliercode.touched">Supplier Code is invalid</small>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="control-label titlesuplier ">Supplier Name</label>
+                      <input autocomplete="off" placeholder="Enter Supplier Name" formControlName="suppliername" class="form-control" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.suppliername.valid && signOffSheetForm.controls.partDetails.controls.suppliername.touched">Supplier Name is invalid</small>
+                    </div>
+                    
+                    <!-- <div class="col-md-4">
+                      <label class="control-label  titlesuplier">E–mail</label>
+                      <input autocomplete="off" placeholder="Enter E–mail " formControlName="email" class="form-control " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.email.valid && signOffSheetForm.controls.partDetails.controls.email.touched">E–mail is invalid</small>
+                    </div> -->
+                  
+                  </div>
+                  <div class="col-md-12"  id="padding">
+                    <button type="button" class="btn btn-danger" (click)="initiate()" style="float:right">Initiate Signoff</button>
+                    <!-- <div class="col-md-4">
+                      <label class="control-label titlesuplier">Contact Number</label>
+                      <input autocomplete="off" placeholder="Enter Contact Number " formControlName="contact" class="form-control " type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.contact.valid && signOffSheetForm.controls.partDetails.controls.contact.touched">Contact Number is invalid</small>
+                    </div> -->
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <!-- <fieldset formGroupName="partDetails">
+            <div class="row">
+              <div class="card cardalign">
+                <div class="col-md-12" >
+                  <div class="">
+                    <p class="padtop" style="padding-top: 8px;">PART INFORMATION</p>
+                  </div>
+                  <div class="col-md-12"  id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Length(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Length(mm)" formControlName="partlength" placeholder="Enter Length" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partlength.valid && signOffSheetForm.controls.partDetails.controls.partlength.touched">Part Length is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Width(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Width(mm)" formControlName="partwidth" placeholder="Enter Width" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partwidth.valid && signOffSheetForm.controls.partDetails.controls.partwidth.touched">Part Width is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label  titlesuplier">Part Height(mm) </label>
+                      <input autocomplete="off" placeholder="Enter Part Height(mm)" formControlName="partheight" placeholder="Enter Height" class="form-control nobordertext "
+                        type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partheight.valid && signOffSheetForm.controls.partDetails.controls.partheight.touched">Part Height is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                  <div class="col-md-12" id="padding">
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Diameter(mm)</label>
+                      <input autocomplete="off" placeholder="Enter Part Diameter(mm)" formControlName="partdia" class="form-control nobordertext border-color"
+                        placeholder="Enter Diameter" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partdia.valid && signOffSheetForm.controls.partDetails.controls.partdia.touched">Part Diameter is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Part Weight(kgs)</label>
+                      <input autocomplete="off" placeholder="Enter Part Weight(kgs)" formControlName="partweight" class="form-control nobordertext "
+                        placeholder="Enter Part Weight" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.partweight.valid && signOffSheetForm.controls.partDetails.controls.partweight.touched">Part Weight is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                      <label class="control-label titlesuplier">Usage Per Vehicle(nos)</label>
+                      <input autocomplete="off" placeholder="Enter Usage Per Vehicle" formControlName="usagepervehicle" class="form-control nobordertext "
+                        placeholder="Enter Usage Per Vehicle" type="text">
+                      <small class="text-danger" *ngIf="!signOffSheetForm.controls.partDetails.controls.usagepervehicle.valid && signOffSheetForm.controls.partDetails.controls.usagepervehicle.touched">Usage Per Vehicle is invalid</small>&nbsp;&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset> -->
+        

@@ -1,0 +1,51 @@
+.panel-title {
+    font-size: 14px !important;
+    cursor: pointer;
+  }
+  .panel-title.dashboard {
+    font-size: 16px !important;
+    color: #026d9d !important;
+  }
+  p.reports {
+    font-size: 16px;
+    font-weight: 600;
+    color: #026d9d !important;
+  }
+  .panel-title.signoffreport {
+    padding-left: 15px;
+  }
+  .panel-title.detailreport {
+    padding-left: 15px;
+  }
+  .filterby {
+    text-align: left;
+    padding-top: 2.5%;
+    padding-bottom: 20px;
+    padding-right: 0px;
+    background: #fff;
+    min-height: 77vh !important;
+    overflow: auto;
+    padding-left: 0px;
+}
+  .panel.panel-default:hover {
+    border: none;
+    background: #f2f1f1;
+}
+
+
+.panel-group {
+  margin-bottom: 3px!important;
+}
+.panel.panel-default.active {
+  background: #e2e0e0 !important
+}
+.panel.panel-default.focus {
+  background: #e2e0e0 !important
+}
+.panel.panel-default {
+  border: none;
+  padding-top: 13px;
+  padding-bottom: 7px;
+  padding-left: 15px;
+  margin-bottom: 8px !important;
+}
